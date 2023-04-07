@@ -125,6 +125,8 @@ st.markdown(
     unsafe_allow_html = True
 )
 
+st.markdown("""---""")
+
 # Creating a container for the general options
 goptions_container = st.container()
 with goptions_container:
@@ -183,9 +185,10 @@ with st.form(key = "inputsForm"):
         
         # Dropdown menu for number of color breaks
         ncolors = st.number_input("Select number of color breaks", 2, 5, 4)
+        st.markdown("<b>Select or write down the color codes for your legend</b>:",
+                    unsafe_allow_html = True)
         cols    = st.columns(ncolors)
 
-        st.write("Select or write down the color codes for your legend")
         for i, x in enumerate(cols):
             input_value = x.color_picker(f"Break #{i+1}:", 
                                          default_colors[ncolors-1][i],

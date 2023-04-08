@@ -1,9 +1,9 @@
-import streamlit as st
-import geopandas as gpd
+import io
 import pandas as pd
+import geopandas as gpd
 import matplotlib.pyplot as plt
 import matplotlib.colors as colors
-import io
+import streamlit as st
 
 st.set_page_config(
     page_title = "Map Generator",

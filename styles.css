@@ -25,11 +25,11 @@ footer{
 
 div .streamlit-expanderHeader p{
     text-size-adjust: 100%;
-    font-size: calc(1.075rem + .3vw);
+    font-size: calc(0.875rem + .3vw);
     font-family: "Source Sans Pro", sans-serif;
     font-weight: 600;
     color: rgb(76, 76, 82);
-    line-height: 1.2;
+    line-height: 1.1;
     box-sizing: border-box;
     position: relative;
     flex: 1 1 0%;

@@ -84,9 +84,10 @@ st.title("ROLI Map Generator")
 st.markdown(
     """
     <p class='jtext'>
-    This is an interactive app designed to display and generate <b style="color:#003249">Choropleth Maps</b> using the WJP's Rule of Law Index. 
+    This is an interactive app designed to display and generate <a href="https://datavizcatalogue.com/methods/choropleth.html">
+    <b style="color:#003249">Choropleth Maps</b></a> using the WJP's <i>Rule of Law Index</i> scores as data inputs. 
     This app is still under deevelopment. Therefore, customization is limited at the moment. However, the data
-    presented in this app is up-to-date to the latest datasets published by the World Justice Project in its website.
+    presented in this app is up-to-date according to the latest datasets published by the World Justice Project in its website.
     </p>
     
     <p class='jtext'>
@@ -95,16 +96,17 @@ st.markdown(
 
     <ol>
         <li class='jtext'>
-            Select the extension of the map. It can be either global or limited to a specific region.
+            Select the extension of the map. It can be either a global map or limited to a specific region.
         </li>
         <li class='jtext'>
-            Select a variable and year from the dropdown menu.
+            Select the score and year that you would like the map to display from the dropdown menu.
         </li>
         <li class='jtext'>
-            Fill in the customization options.
+            You can further customize your map by adding color breaks or changing the color key. Once that you are done
+            with the customization, click on <b style="color:#003249">"Update my custom setting please"</b>.
         </li>
         <li class='jtext'>
-            Click on the <b style="color:#003249">"Let's rock!!"</b> button to visualize your map.
+            Once you are ready, click on the <b style="color:#003249">"Let's rock!!"</b> button to visualize your map.
         </li>
         <li class='jtext'>
             If you like the map and you would like to save it as a SVG file, click on the 

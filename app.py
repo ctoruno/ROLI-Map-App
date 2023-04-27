@@ -4,7 +4,6 @@ import geopandas as gpd
 import matplotlib.pyplot as plt
 import matplotlib.colors as colors
 import streamlit as st
-import streamlit_toggle
 
 st.set_page_config(
     page_title = "Map Generator",

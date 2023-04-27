@@ -128,3 +128,9 @@ dmypy.json
 # Pyre type checker
 .pyre/
 Data/geoBoundariesCGAZ_ADM0.geojson
+Data/WB_geodata/WB_countries_Admin0.geojson
+Data/WB_geodata/WB_Land.geojson
+Data/WB_geodata/WB_Coastlines.geojson
+Data/WB_geodata/WB_Admin0_disputed_areas_boundary_lines.geojson
+Data/WB_geodata/WB_Admin0_disputed_areas.geojson
+Data/WB_geodata/WB_Admin0_boundary_lines.geojson

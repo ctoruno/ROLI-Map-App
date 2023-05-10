@@ -187,6 +187,12 @@ with extension_container:
     countries and territories in 5 continents and 22 subregions.
     '''
 
+    st.markdown(
+        """
+        <b>!!!REGIONAL EXTENSIONS ARE NOT FULLY AVAILABLE YET!!!<br>
+        """,
+        unsafe_allow_html = True)
+
     extension = st.radio("Select an extension for your map:", 
                         ["World", "Regional"],
                         horizontal = True,

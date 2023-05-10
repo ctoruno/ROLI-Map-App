@@ -4,6 +4,7 @@ import geopandas as gpd
 import matplotlib.pyplot as plt
 import matplotlib.colors as colors
 import streamlit as st
+from shapely.geometry import box
 
 st.set_page_config(
     page_title = "Map Generator",
@@ -21,11 +22,12 @@ def load_data():
     boundaries        = gpd.read_file("Data/data4app.geojson")
     roli_data         = pd.read_excel("Data/ROLI_data.xlsx")
     roli_data["year"] = roli_data["year"].apply(str)
-    data              = {"boundaries": boundaries,
-                         "roli": roli_data}
+    data              = {"boundaries" : boundaries,
+                         "roli"       : roli_data}
     return data 
-
 master_data = load_data()
+
+# Loading a list with variable labels
 variable_labels = ["Rule of Law Index Overall Score",
                    "Factor 1: Constraints on Government Powers",    
                    "1.1 Government powers are effectively limited by the legislature",    
@@ -80,6 +82,40 @@ variable_labels = ["Rule of Law Index Overall Score",
                    "8.6 Criminal system is free of improper government influence",    
                    "8.7 Due process of the law and rights of the accused"]
 
+# Loading a Data Frame with regional bbox coordinates
+bbox_coords = pd.DataFrame([
+        ['Southern Europe', -10, 35, 30, 47],
+        ['Southern Asia', 42, 5, 105, 40],
+        ['Middle Africa', 5, -19.2, 35, 24.5],
+        ['Western Asia', 25, 10, 65, 45],
+        ['South America', -90, -60, -30, 15],
+        ['Caribbean', -85, 8, -57, 28],
+        ['Australia and New Zealand', 105, -50, 180, -5],
+        ['Western Europe', -10, 35, 20, 60],
+        ['Eastern Africa', 20, -27.5, 58, 22.8],
+        ['Western Africa', -25, -1, 25, 28.5],
+        ['Eastern Europe', 11, 40, 45, 65],
+        ['Central America', -93, 5, -76, 20],
+        ['South-Eastern Asia', 90, -11, 145, 29],
+        ['Southern Africa', 10, -35, 55, -16],
+        ['Northern America', -170, 13, -50, 75],
+        ['Eastern Asia', 73, 20, 150, 55],
+        ['Northern Europe', -25, 50, 36, 72],
+        ['Northern Africa', -15, 9, 37, 40],
+        ['Melanesia', 139, -20.5, 180, 0],
+        ['Micronesia', 133, 3, 170, 11],
+        ['Central Asia', 45, 35, 90, 56],
+        ['Polynesia', -176, -22.5, -166, -12],
+        ['EU, EFTA, and North America', -172, 24, 36, 80.8], 
+        ['Eastern Europe and Central Asia', 13, 35, 180, 82],
+        ['South Asia', 57, 5, 100, 40], 
+        ['Sub-Saharan Africa', -21, -36.9, 61.3, 38.3],
+        ['Middle East & North Africa', -19.5, 18, 64.3, 45], 
+        ['Latin America & Caribbean', -119.5, -66, -29, 38.3],
+        ['East Asia & Pacific', 73, -48.7, 180, 54.8]
+], columns = ["region", "min_X", "min_Y", "max_X", "max_Y"]
+)
+
 # Intro text
 st.title("ROLI Map Generator")
 
@@ -104,7 +140,8 @@ st.markdown(
             Select the data that you would like the map to display from the available options.
         </li>
         <li class='jtext'>
-            You can further customize your map by adding color breaks or changing the color key. You don't need to set a color for every country, you just need to define the major color breaks that your Choropleth Map should have. The app will then, do the rest. 
+            You can further customize your map by adding color breaks or changing the color key. You don't need to set a color for every country, 
+            you just need to define the major color breaks that your Choropleth Map should have. The app will then, do the rest. 
         </li>
         <li class='jtext'>
             Once you are ready, click on the <b style="color:#003249">"Let's rock!!"</b> button to visualize your map.
@@ -140,20 +177,15 @@ with extension_container:
         
     # Extension input
     extension_help = '''
-    The extension refers to the extension of your desired map. A world map is straightforward, but if you want to draw a regional map we need you to fulfill additional options about the geographical extension of your map.
+    The extension refers to the extension of your desired map. A world map is straightforward, but if you want 
+    to draw a regional map we need you to fulfill additional options about the geographical extension of your map.
     '''
     regions_help = '''
     The World Bank classification divides countries and territories in seven regions,
-    an it is driven by geography and development criteria. This is the classification used by WJP to present their results. The United Nations classification divides
+    an it is driven by geography and development criteria. This is the classification 
+    used by WJP to present their results. The United Nations classification divides
     countries and territories in 5 continents and 22 subregions.
     '''
-
-    st.markdown(
-        """
-        <b>!!!REGIONAL EXTENSIONS ARE NOT AVAILABLE YET!!!<br>
-        However, you can visualize the available regions.</b>
-        """,
-        unsafe_allow_html = True)
 
     extension = st.radio("Select an extension for your map:", 
                         ["World", "Regional"],
@@ -165,7 +197,7 @@ with extension_container:
     UN_subregions = master_data["boundaries"]["SUBREGION"].unique().tolist()
     WB_regions    = master_data["boundaries"]["REGION_WB"].unique().tolist()
 
-    # Conditional display
+    # Conditional display of regional options
     if extension == "Regional":
         
         # Which regions are we working with?
@@ -224,6 +256,8 @@ with data_container:
                                    format_func=lambda x: available_variables[x])
     target_year     = st.selectbox("Select which year do you want to display from the following list:",
                                    available_years)
+    
+st.write()
 
 st.markdown("""---""")
 
@@ -237,19 +271,20 @@ with customization:
 
     # Defining default colors
     default_colors = [["#B49A67"],
-                        ["#B49A67", "#001A23"],
-                        ["#98473E", "#B49A67", "#001A23"],
-                        ["#98473E", "#B49A67", "#395E66", "#001A23"],
-                        ["#98473E", "#B49A67", "#7A9E7E", "#395E66", "#001A23"]]
+                      ["#B49A67", "#001A23"],
+                      ["#98473E", "#B49A67", "#001A23"],
+                      ["#98473E", "#B49A67", "#395E66", "#001A23"],
+                      ["#98473E", "#B49A67", "#7A9E7E", "#395E66", "#001A23"]]
     
     color_breaks = []
 
     # Dropdown menu for number of color breaks
     ncolors = st.number_input("Select number of color breaks", 2, 5, 4)
+
+    # Dynamic Color Pickers
     st.markdown("<b>Select or write down the color codes for your legend</b>:",
                 unsafe_allow_html = True)
     cols    = st.columns(ncolors)
-
     for i, x in enumerate(cols):
         input_value = x.color_picker(f"Break #{i+1}:", 
                                         default_colors[ncolors-1][i],
@@ -281,28 +316,56 @@ if submit_button:
                                                right_on = "code",
                                                how      = "left")
     
+    # Subsetting countries within selected regions
+    if extension == "Regional":
+
+        # Defining bounding box
+        regions_coords = (bbox_coords[bbox_coords["region"].isin(selected_regions)])
+        min_X = regions_coords.min_X.min()
+        min_Y = regions_coords.min_Y.min()
+        max_X = regions_coords.max_X.max()
+        max_Y = regions_coords.max_Y.max()
+        bbox  = box(min_X, min_Y, max_X, max_Y)
+
+        # Masking the world map using the bounding box
+        # We also changed the projection to Miller Cilindrical Projection
+        # see: https://epsg.io/54003
+
+        data4drawing = data4map[data4map.intersects(bbox)].copy()
+        data4drawing.loc[:, 'geometry'] = data4drawing.intersection(bbox)
+        data4drawing = data4drawing.to_crs('ESRI:54003')
+    
+    else:
+         data4drawing = data4map.copy()
+        
+    # test = data4map[data4map.intersects(bbox)]
+    # test.geometry = test.intersection(bbox)
+    
     # Parameters for missing values
     missing_kwds = {
-        "color": "#EBEBEB",
+        "color"    : "#EBEBEB",
         "edgecolor": "white",
-        "label": "Missing values"
+        "label"    : "Missing values"
     }
 
-    # Default colors
     # Create a custom colormap
     colors_list = color_breaks
     cmap_name   = "default_cmap"
     cmap        = colors.LinearSegmentedColormap.from_list(cmap_name, colors_list)
-
+    
     # Drawing map with matplotlib
-    fig, ax = plt.subplots(1, figsize=(25, 16))
-    data4map.plot(column       = target_variable, 
-                  cmap         = cmap, 
-                  linewidth    = 0.5, 
-                  ax           = ax, 
-                  edgecolor    = "white", 
-                  legend       = True,
-                  missing_kwds = missing_kwds)
+    fig, ax = plt.subplots(1, 
+                           figsize = (25, 16),
+                           dpi     = 100)
+    data4drawing.plot(
+        column       = target_variable, 
+        cmap         = cmap,
+        linewidth    = 0.5,
+        ax           = ax,
+        edgecolor    = "white",
+        legend       = True,
+        missing_kwds = missing_kwds
+    )
     ax.axis("off")
     st.pyplot(fig)
 
@@ -310,6 +373,7 @@ if submit_button:
     svg_file = io.StringIO()
     plt.savefig(svg_file, 
                 format = "svg")
+        
     st.download_button(label     = "I love it!! Please save it", 
                         data      = svg_file.getvalue(), 
                         file_name = "choropleth_map.svg")

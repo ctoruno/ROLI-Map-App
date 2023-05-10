@@ -44,6 +44,12 @@ raw_boundaries.loc[raw_boundaries["TYPE"]  == "Lease", "WB_A3"] = "XXX"
 raw_boundaries.loc[raw_boundaries["WB_A3"] == "MEX", "SUBREGION"] = "Central America"
 raw_boundaries.loc[raw_boundaries["WB_A3"] == "MLT", "REGION_WB"] = "Europe & Central Asia"
 
+# Splitting Taiwan from China
+# TEST
+
+# Adjusting WB Regions to match the Index Regions
+# TEST
+
 # Loading Disputed Territories GeoJSON
 disputed_territories = (gpd
                         .read_file(path2data + "WB_Admin0_disputed_areas.geojson")

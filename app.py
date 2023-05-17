@@ -146,11 +146,11 @@ st.markdown(
             you just need to define the major color breaks that your Choropleth Map should have. The app will then, do the rest. 
         </li>
         <li class='jtext'>
-            Once you are ready, click on the <b style="color:#003249">"Let's rock!!"</b> button to visualize your map.
+            Once you are ready, click on the <b style="color:#003249">"Display"</b> button to visualize your map.
         </li>
         <li class='jtext'>
             If you like the map and you would like to save it as a SVG file, click on the 
-            <b style="color:#003249">"I love it!! Please save it"</b> button.
+            <b style="color:#003249">"Save"</b> button.
         </li>
     </ol>
 
@@ -310,7 +310,7 @@ with saving:
     st.markdown("<h4>Step 4: Draw your map</h4>",
                 unsafe_allow_html = True)
 
-    submit_button = st.button(label = "Let's rock!!")
+    submit_button = st.button(label = "Display")
 
 # Server
 if submit_button:
@@ -382,7 +382,7 @@ if submit_button:
     plt.savefig(svg_file, 
                 format = "svg")
         
-    st.download_button(label     = "I love it!! Please save it", 
+    st.download_button(label     = "Save", 
                         data      = svg_file.getvalue(), 
                         file_name = "choropleth_map.svg")
 

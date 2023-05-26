@@ -196,7 +196,7 @@ with extension_container:
     #     unsafe_allow_html = True)
 
     extension = st.radio("Select an extension for your map:", 
-                        ["World", "Regional"],
+                        ["World", "Regional", "Custom"],
                         horizontal = True,
                         help       = extension_help)
 
@@ -239,6 +239,34 @@ with extension_container:
             selected_regions = st.multiselect("Select the regions you would like to work with:", 
                                               listed_subregions,
                                               help = "You can select more than one")
+
+    # Conditional display for customized extension
+    elif extension == "Custom":
+        clatitudes, clongitudes = st.columns(2)
+
+        with clatitudes:
+            min_lat = st.number_input(label     = "Minimum Latitude",
+                                      min_value = -90,
+                                      max_value = 90,
+                                      value     = 5,
+                                      help      = "Insert coordinates in degrees")
+            max_lat = st.number_input(label     = "Maximum Latitude",
+                                      min_value = -90,
+                                      max_value = 90,
+                                      value     = 40,
+                                      help      = "Insert coordinates in degrees")
+        
+        with clongitudes:
+            min_lon = st.number_input(label     = "Minimum Longitude",
+                                      min_value = -180,
+                                      max_value = 180,
+                                      value     = 57,
+                                      help      = "Insert coordinates in degrees")
+            max_lon = st.number_input(label     = "Maximum Longitude",
+                                      min_value = -180,
+                                      max_value = 180,
+                                      value     = 100,
+                                      help      = "Insert coordinates in degrees")
 
     else:
         selected_regions = None
@@ -325,19 +353,23 @@ if submit_button:
                                                how      = "left")
     
     # Subsetting countries within selected regions
-    if extension == "Regional":
+    if extension != "World":
+        
+        if extension == "Regional":
+            # Defining bounding box
+            regions_coords = (bbox_coords[bbox_coords["region"].isin(selected_regions)])
+            min_X = regions_coords.min_X.min()
+            min_Y = regions_coords.min_Y.min()
+            max_X = regions_coords.max_X.max()
+            max_Y = regions_coords.max_Y.max()
+            bbox  = box(min_X, min_Y, max_X, max_Y)
 
-        # Defining bounding box
-        regions_coords = (bbox_coords[bbox_coords["region"].isin(selected_regions)])
-        min_X = regions_coords.min_X.min()
-        min_Y = regions_coords.min_Y.min()
-        max_X = regions_coords.max_X.max()
-        max_Y = regions_coords.max_Y.max()
-        bbox  = box(min_X, min_Y, max_X, max_Y)
+            # Masking the world map using the bounding box
+            # We also changed the projection to Miller Cilindrical Projection
+            # see: https://epsg.io/54003
 
-        # Masking the world map using the bounding box
-        # We also changed the projection to Miller Cilindrical Projection
-        # see: https://epsg.io/54003
+        if extension == "Custom":
+            bbox  = box(min_lon, min_lat, max_lon, max_lat)
 
         data4drawing = data4map[data4map.intersects(bbox)].copy()
         data4drawing.loc[:, 'geometry'] = data4drawing.intersection(bbox)

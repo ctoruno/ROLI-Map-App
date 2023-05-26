@@ -44,11 +44,31 @@ raw_boundaries.loc[raw_boundaries["TYPE"]  == "Lease", "WB_A3"] = "XXX"
 raw_boundaries.loc[raw_boundaries["WB_A3"] == "MEX", "SUBREGION"] = "Central America"
 raw_boundaries.loc[raw_boundaries["WB_A3"] == "MLT", "REGION_WB"] = "Europe & Central Asia"
 
-# Splitting Taiwan from China
-# TEST
+# Adjusting Three-Letter Country Codes to match index data
+raw_boundaries.loc[raw_boundaries["WB_A3"] == "ZAR", "WB_A3"] = "COD"
+raw_boundaries.loc[raw_boundaries["WB_A3"] == "KSV", "WB_A3"] = "XKX"
+raw_boundaries.loc[raw_boundaries["WB_A3"] == "ROM", "WB_A3"] = "ROU"
 
-# Adjusting WB Regions to match the Index Regions
-# TEST
+# Splitting China's geometries
+china    = raw_boundaries.loc[raw_boundaries["WB_A3"] == "CHN"]
+exploded = china.explode().reset_index(drop = True)
+# exploded["area"] = exploded.geometry.area
+# Using the aarea I am able to identify Taiwan as row #31
+
+# Manually inputting Taiwan's info
+exploded.at[31, 'WB_A3']   = "TWN"
+exploded.at[31, 'NAME_EN'] = "Taiwan"
+exploded.at[31, 'WB_NAME'] = "Taiwan"
+
+# Disolving exploded geopandas for China
+china = (exploded
+         .dissolve(by      = "WB_A3",
+                   aggfunc = "first")).reset_index()
+
+# Appending china+taiwan geopandas to raw_boundaries
+raw_boundaries = (pd.concat([raw_boundaries.loc[raw_boundaries["WB_A3"] != "CHN"],
+                             china],
+                             ignore_index = True))
 
 # Loading Disputed Territories GeoJSON
 disputed_territories = (gpd
@@ -94,8 +114,8 @@ def group_dependencies(row):
         return "NZL"
     elif code in ["FRO"]: # Greenland "GRL" stays as a separate territory
         return "DNK"
-    elif code in ["HKG", "MAC"]:
-        return "CHN"
+    # elif code in ["HKG", "MAC"]:
+    #     return "CHN"
     else:
         return row["WB_A3"]
 

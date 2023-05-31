@@ -5,6 +5,8 @@ import matplotlib.pyplot as plt
 import matplotlib.colors as colors
 import streamlit as st
 from shapely.geometry import box
+# import plotly.express as px
+# import plotly.graph_objects as go
 
 st.set_page_config(
     page_title = "Map Generator",
@@ -179,8 +181,9 @@ with extension_container:
         
     # Extension input
     extension_help = '''
-    The extension refers to the extension of your desired map. A world map is straightforward, but if you want 
-    to draw a regional map we need you to fulfill additional options about the geographical extension of your map.
+    The extension refers to the geographical coverage of your desired map. It can be a world or regional map.
+    A world map is straightforward, but if you want to draw a regional map, you will need to fulfill additional 
+    options about the geographical extension of your map.
     '''
     regions_help = '''
     The World Bank classification divides countries and territories in seven regions,
@@ -188,12 +191,14 @@ with extension_container:
     used by WJP to present their results. The United Nations classification divides
     countries and territories in 5 continents and 22 subregions.
     '''
-
-    # st.markdown(
-    #     """
-    #     <b>!!!REGIONAL EXTENSIONS ARE NOT FULLY AVAILABLE YET!!!<br>
-    #     """,
-    #     unsafe_allow_html = True)
+    dinput_help = '''
+    Would you like to use the index scores data or would you like to input your own custom data?
+    '''
+    data_format_help = '''
+    For uploading a file, make sure the workbook has a single sheet and it has two columns at the 
+    beginning: "WB_A3" and "year". Each row should represnt the achieved value for a country in a certain 
+    year.
+    '''
 
     extension = st.radio("Select an extension for your map:", 
                         ["World", "Regional", "Custom"],
@@ -282,17 +287,73 @@ with data_container:
     st.markdown("<h4>Step 2: Select the scores to be displayed in your map</h4>",
                     unsafe_allow_html = True)
     
-    # Searchbox to define a target variable
-    available_variables = dict(zip(master_data["roli"].iloc[:, 4:].columns.tolist(),
-                                   variable_labels))
-    available_years = sorted(master_data["roli"]["year"].unique().tolist(),
-                             reverse = True)
-    target_variable = st.selectbox("Select a variable from the following list:",
-                                   list(available_variables.keys()),
-                                   format_func=lambda x: available_variables[x])
-    target_year     = st.selectbox("Select which year do you want to display from the following list:",
-                                   available_years)
+    # Choose the data input
+    data_input = st.radio("Select a data input for your map:", 
+                          ["Index Variables", "Custom Data"],
+                          horizontal = True,
+                          help       = dinput_help)
     
+    if data_input == "Custom Data":
+
+        # File uploader
+        uploaded_file = st.file_uploader("Upload Excel file", 
+                                         type = ["xlsx"],
+                                         help = data_format_help)
+        
+        # Process uploaded data
+        if uploaded_file is not None:
+
+            try:
+                # Read the Excel file into a Pandas DataFrame
+                master_data["roli"] = pd.read_excel(uploaded_file).rename(columns = {"country_code": "code"})
+                master_data["roli"]["year"] = master_data["roli"]["year"].astype(str)
+
+                # Displaying data
+                data_preview = st.expander("Click here to preview your data")
+                with data_preview:
+                    st.write(master_data["roli"])
+
+                # Searchbox to define a target variable
+                cnames = master_data["roli"].columns
+                available_variables = [col for col in cnames if col not in ["year", "code"]]
+                available_years = sorted(master_data["roli"]["year"].unique().tolist(),
+                                         reverse = True)
+                
+                target_variable = st.selectbox("Select a variable from the following list:",
+                                               available_variables)
+                target_year     = st.selectbox("Select which year do you want to display from the following list:",
+                                               available_years)
+                
+                # Floor and ceiling values
+                floor_input, ceiling_input = st.columns(2)
+
+                with floor_input:
+                    floor = st.number_input("What's the minimum expected value?")
+                
+                with ceiling_input:
+                    ceiling = st.number_input("What's the maximum expected value?")
+
+            except Exception as e:
+                st.error("Error: Unable to read the file. Please upload a valid Excel file.")
+                st.exception(e)
+    
+    else:
+
+        # Searchbox to define a target variable
+        available_variables = dict(zip(master_data["roli"].iloc[:, 4:].columns.tolist(),
+                                    variable_labels))
+        available_years = sorted(master_data["roli"]["year"].unique().tolist(),
+                                reverse = True)
+        target_variable = st.selectbox("Select a variable from the following list:",
+                                    list(available_variables.keys()),
+                                    format_func=lambda x: available_variables[x])
+        target_year     = st.selectbox("Select which year do you want to display from the following list:",
+                                    available_years)
+        
+        # Floor and ceiling values
+        floor   = 0
+        ceiling = 1
+
 st.write()
 
 st.markdown("""---""")
@@ -377,9 +438,6 @@ if submit_button:
     
     else:
          data4drawing = data4map.copy()
-        
-    # test = data4map[data4map.intersects(bbox)]
-    # test.geometry = test.intersection(bbox)
     
     # Parameters for missing values
     missing_kwds = {
@@ -392,32 +450,108 @@ if submit_button:
     colors_list = color_breaks
     cmap_name   = "default_cmap"
     cmap        = colors.LinearSegmentedColormap.from_list(cmap_name, colors_list)
-    
-    # Drawing map with matplotlib
-    fig, ax = plt.subplots(1, 
-                           figsize = (25, 16),
-                           dpi     = 100)
-    data4drawing.plot(
-        column       = target_variable, 
-        cmap         = cmap,
-        linewidth    = 0.5,
-        ax           = ax,
-        edgecolor    = "white",
-        legend       = True,
-        missing_kwds = missing_kwds
-    )
-    ax.axis("off")
-    st.pyplot(fig)
 
-    # Export image as SVG file
-    svg_file = io.StringIO()
-    plt.savefig(svg_file, 
-                format = "svg")
+    # Drawing plotly
+    # data4drawing.set_index("WB_NAME")
+    # fig = px.choropleth(
+    #     data_frame             = data4drawing,
+    #     geojson                = data4drawing.geometry,
+    #     locations              = data4drawing.index,
+    #     color                  = target_variable,
+    #     color_continuous_scale = color_breaks,
+    #     range_color            = (0, 1),
+    #     labels                 = {"country": target_variable}
+    # )
+
+    # fig.update_geos(
+    #     projection_type=<projection_type>,
+    #     showcoastlines=True,  # Display coastlines on the map
+    #     coastlinecolor="white",  # Set the color of the coastlines
+    #     showland=True,  # Display landmasses on the map
+    #     landcolor="lightgray",  # Set the color of the landmasses
+    # )
+
+    # Display the plotly figure using Streamlit
+    # st.plotly_chart(fig)
+
+    # Creating tabs for displaying the results
+    map_tab, table_tab = st.tabs(["Map", "Table"])
+
+    with map_tab:
+        # Drawing map with matplotlib
+        fig, ax = plt.subplots(1, 
+                            figsize = (25, 16),
+                            dpi     = 100)
+        data4drawing.plot(
+            column       = target_variable, 
+            cmap         = cmap,
+            linewidth    = 0.2,
+            ax           = ax,
+            edgecolor    = "white",
+            legend       = True,
+            vmin         = floor,
+            vmax         = ceiling,
+            missing_kwds = missing_kwds
+        )
+        ax.axis("off")
+
+        # Displaying map
+        st.pyplot(fig)
+
+        # Export image as SVG file
+        svg_file = io.StringIO()
+        plt.savefig(svg_file, 
+                    format = "svg")
         
-    st.download_button(label     = "Save", 
-                        data      = svg_file.getvalue(), 
-                        file_name = "choropleth_map.svg")
+        # Download button
+        st.download_button(label     = "Save map", 
+                           data      = svg_file.getvalue(), 
+                           file_name = "choropleth_map.svg",
+                           key       = "download-map")
+        
+    with table_tab:
 
+        buffer = io.BytesIO()
 
+        # Dropping geometries
+        outcome_table = (pd
+                         .DataFrame(data4drawing.drop(columns = "geometry")))
+        
+        # Subsetting data frame to export
+        outcome_table = outcome_table[outcome_table["year"] == target_year]
+        outcome_table = outcome_table[["WB_A3", target_variable]]
 
+        # Adding minimmum and maximum hypothetical values
+        outcome_table = outcome_table.append({'WB_A3': 'Floor-Ceiling', target_variable: floor}, 
+                                             ignore_index = True)
+        outcome_table = outcome_table.append({'WB_A3': 'Floor-Ceiling', target_variable: ceiling}, 
+                                             ignore_index = True)
 
+        # Add a new column to the GeoDataFrame for color codes
+        outcome_table["color_code"] = (outcome_table
+                                       .apply(lambda row: colors.rgb2hex(plt.cm.get_cmap(cmap)(row[target_variable])), 
+                                              axis = 1))
+        
+        # Excluding the hypothetical values
+        outcome_table = outcome_table.query("WB_A3 != 'Floor-Ceiling'")
+        
+        # Displaying Table
+        st.write(outcome_table)
+
+        # Converting to EXCEL
+        # You need to install the XlsxWriter. See: https://xlsxwriter.readthedocs.io/
+        with pd.ExcelWriter(buffer, engine='xlsxwriter') as writer:
+            outcome_table.to_excel(writer,
+                                   sheet_name = "Data-Table")
+            
+            writer.save()
+
+        # Download button
+        st.download_button(
+            label     = "Download Table as an Excel file",
+            data      = buffer,
+            file_name = "color_map.xlsx",
+            mime      = "application/vnd.ms-excel"
+        )
+
+    

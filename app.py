@@ -466,7 +466,7 @@ if submit_button:
     # Parameters for missing values
     missing_kwds = {
         "color"    : "#EBEBEB",
-        "edgecolor": "white",
+        "edgecolor": "#EBEBEB",
         "label"    : "Missing values"
     }
 

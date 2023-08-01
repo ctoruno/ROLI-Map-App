@@ -520,7 +520,7 @@ if submit_button:
         sborders.plot(
             ax           = ax,
             linestyle    = "dotted",
-            linewidth    = 0.2, 
+            linewidth    = 0.45, 
             color        = "#CCCCCC"
         )
         ax.axis("off")

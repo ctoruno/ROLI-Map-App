@@ -5,8 +5,6 @@ import matplotlib.pyplot as plt
 import matplotlib.colors as colors
 import streamlit as st
 from shapely.geometry import box
-# import plotly.express as px
-# import plotly.graph_objects as go
 
 st.set_page_config(
     page_title = "Map Generator",
@@ -86,6 +84,8 @@ variable_labels = ["Rule of Law Index Overall Score",
 
 # Loading a Data Frame with regional bbox coordinates
 bbox_coords = pd.DataFrame([
+
+        # UN regions
         ['Southern Europe', -10, 35, 30, 47],
         ['Southern Asia', 42, 5, 105, 40],
         ['Middle Africa', 5, -19.2, 35, 24.5],
@@ -108,15 +108,20 @@ bbox_coords = pd.DataFrame([
         ['Micronesia', 133, 3, 170, 11],
         ['Central Asia', 45, 35, 90, 56],
         ['Polynesia', -176, -22.5, -166, -12],
-        ['EU, EFTA, and North America', -172, 24, 36, 80.8],
-        ['Europe & Central Asia', -12, 33.5,88, 75],
-        ['North America', -170, 24, -50, 88], 
-        ['Eastern Europe and Central Asia', 13, 35, 180, 82],
+
+        # WJP regions
+        ['East Asia & Pacific', 73, -48.7, 180, 54.8],
+        ['Eastern Europe and Central Asia', 13, 35, 180, 88],
+        ['EU, EFTA, and North America', -172, 24, 36, 88],
+        ['Latin America & Caribbean', -119.5, -66, -29, 38.3],
+        ['Middle East & North Africa', -19.5, 18, 64.3, 45], 
         ['South Asia', 57, 5, 100, 40], 
         ['Sub-Saharan Africa', -21, -36.9, 61.3, 38.3],
-        ['Middle East & North Africa', -19.5, 18, 64.3, 45], 
-        ['Latin America & Caribbean', -119.5, -66, -29, 38.3],
-        ['East Asia & Pacific', 73, -48.7, 180, 54.8]
+
+        # Additional WB regions
+        ['Europe & Central Asia', -12, 33.5,88, 75],
+        ['North America', -170, 24, -50, 88]
+
 ], columns = ["region", "min_X", "min_Y", "max_X", "max_Y"]
 )
 
@@ -138,10 +143,11 @@ st.markdown(
 
     <ol>
         <li class='jtext'>
-            Define the geographical extension of your map. It can be either a global map or limited to a specific region.
+            Define the geographical extension of your map. It can be either a global map or limited to a specific region or geographical
+            coordinates.
         </li>
         <li class='jtext'>
-            Select the data that you would like the map to display from the available options.
+            Select the data that you would like the map to display from the available options or load your own set of data.
         </li>
         <li class='jtext'>
             You can further customize your map by adding color breaks or changing the color key. You don't need to set a color for every country, 
@@ -206,28 +212,36 @@ with extension_container:
                         help       = extension_help)
 
     # Available Regions
-    UN_regions    = master_data["boundaries"]["REGION_UN"].unique().tolist()
+    UN_regions    = master_data["boundaries"]["REGION_UN"].dropna().unique().tolist()
+    UN_regions.remove('Seven seas (open ocean)')
     UN_subregions = master_data["boundaries"]["SUBREGION"].unique().tolist()
     WB_regions    = master_data["boundaries"]["REGION_WB"].unique().tolist()
+    WJP_regions   = ['East Asia & Pacific',
+                     'Eastern Europe and Central Asia',
+                     'EU, EFTA, and North America',
+                     'Latin America & Caribbean',
+                     'Middle East & North Africa',
+                     'South Asia',
+                     'Sub-Saharan Africa']
 
     # Conditional display of regional options
     if extension == "Regional":
         
         # Which regions are we working with?
         regions_div = st.radio("Which region classification would you like to use?",
-                              ["World Bank", "United Nations"],
+                              ["WJP", "United Nations"],
                               horizontal = True,
                               help       = regions_help)
         
-        if regions_div == "World Bank":
+        if regions_div == "WJP":
 
             # Defining the filtering variable
-            regfilter = "REGION_WB"
+            regfilter = "REGION_WJP"
 
             # Dropdown menu for regions
             selected_regions = st.multiselect("Select the regions you would like to work with:", 
-                                              WB_regions,
-                                              help = "You can select more than one")
+                                              WJP_regions,
+                                              help = "You can select more than one region.")
             
         if regions_div == "United Nations":
 
@@ -237,13 +251,14 @@ with extension_container:
             # Dropdown menu for regions
             regions = st.multiselect("Select the regions you would like to work with:",  
                                      UN_regions,
-                                     help = "You can select more than one")
+                                     help = "You can select more than one region.")
             
             # Dropdown menu for subregions
             listed_subregions = master_data["boundaries"][master_data["boundaries"]["REGION_UN"].isin(regions)]["SUBREGION"].unique().tolist()
-            selected_regions = st.multiselect("Select the regions you would like to work with:", 
-                                              listed_subregions,
-                                              help = "You can select more than one")
+            selected_regions  = st.multiselect("Select the regions you would like to work with:", 
+                                               listed_subregions,
+                                               default = listed_subregions,
+                                               help = "You can select more than one subregion.")
 
     # Conditional display for customized extension
     elif extension == "Custom":
@@ -367,16 +382,19 @@ with customization:
                     unsafe_allow_html = True)
 
     # Defining default colors
-    default_colors = [["#B49A67"],
-                      ["#B49A67", "#001A23"],
-                      ["#98473E", "#B49A67", "#001A23"],
-                      ["#98473E", "#B49A67", "#395E66", "#001A23"],
-                      ["#98473E", "#B49A67", "#7A9E7E", "#395E66", "#001A23"]]
+    default_colors = [["#1A7154"],
+                      ["#A41010", "#1E3231"],
+                      ["#A41010", "#F0C412", "#1E3231"],
+                      ["#A41010", "#F0C412", "#1A7154", "#1E3231"],
+                      ["#A41010", "#CA6A11", "#F0C412", "#1A7154", "#1E3231"],
+                      ["#A41010", "#CA6A11", "#F0C412", "#859B33", "#1A7154", "#1E3231"],
+                      ["#A41010", "#CA6A11", "#DD9712", "#F0C412", "#859B33", "#1A7154", "#1E3231"]]
     
     color_breaks = []
 
     # Dropdown menu for number of color breaks
-    ncolors = st.number_input("Select number of color breaks", 2, 5, 4)
+    ncolors = st.number_input("Select number of color breaks", 2, 7, 5,
+                              help = "You can select to a maximum of 7 color breaks.")
 
     # Dynamic Color Pickers
     st.markdown("<b>Select or write down the color codes for your legend</b>:",
@@ -438,6 +456,12 @@ if submit_button:
     
     else:
          data4drawing = data4map.copy()
+
+    # Creating a special borders geo-data-frame
+    disp = data4drawing[data4drawing.TYPE.isin(["Disputed"])]
+    disp = gpd.GeoDataFrame(disp, geometry = disp.boundary)
+    sbor = data4drawing[data4drawing.TYPE.isin(["Special Border"])]
+    sborders = pd.concat([disp, sbor])
     
     # Parameters for missing values
     missing_kwds = {
@@ -487,11 +511,17 @@ if submit_button:
             cmap         = cmap,
             linewidth    = 0.2,
             ax           = ax,
-            edgecolor    = "white",
+            edgecolor    = "#EBEBEB",
             legend       = True,
             vmin         = floor,
             vmax         = ceiling,
             missing_kwds = missing_kwds
+        )
+        sborders.plot(
+            ax           = ax,
+            linestyle    = "dotted",
+            linewidth    = 0.2, 
+            color        = "#CCCCCC"
         )
         ax.axis("off")
 

@@ -395,7 +395,7 @@ with customization:
     # Dropdown menu for number of color breaks
     ncolors = st.number_input("Select number of color breaks", 2, 7, 5,
                               help = "You can select to a maximum of 7 color breaks.")
-
+    
     # Dynamic Color Pickers
     st.markdown("<b>Select or write down the color codes for your legend</b>:",
                 unsafe_allow_html = True)
@@ -406,6 +406,31 @@ with customization:
                                         key = f"break{i}")
         x.write(str(input_value))
         color_breaks.append(input_value)
+
+    st.markdown("""<br>""",
+                unsafe_allow_html = True)
+
+    # Map dimensions
+    st.markdown("<b>Specify your map dimensions</b>:",
+                unsafe_allow_html = True)
+    
+    mwidth, mheight, mres, bthick  = st.columns(4)
+    with mwidth:
+        width_in  = st.number_input("Width (inches)", 
+                                    0, 500, 25)
+
+    with mheight:
+        height_in = st.number_input("Height (inches)",
+                                    0, 500, 16)
+        
+    with mres:
+        dpi       = st.number_input("Dots per inch (DPI)",
+                                    0, 250, 100)
+    
+    with bthick:
+        linewidth = st.number_input("Border width (in points)",
+                                    0.0, 5.0, 0.75,
+                                    help = "The map has a resolution of 72 PPI")
 
 st.markdown("""---""")
 
@@ -456,12 +481,6 @@ if submit_button:
     
     else:
          data4drawing = data4map.copy()
-
-    # Creating a special borders geo-data-frame
-    disp = data4drawing[data4drawing.TYPE.isin(["Disputed"])]
-    disp = gpd.GeoDataFrame(disp, geometry = disp.boundary)
-    sbor = data4drawing[data4drawing.TYPE.isin(["Special Border"])]
-    sborders = pd.concat([disp, sbor])
     
     # Parameters for missing values
     missing_kwds = {
@@ -498,18 +517,29 @@ if submit_button:
     # Display the plotly figure using Streamlit
     # st.plotly_chart(fig)
 
+    # Creating a special borders geo-data-frame
+    disp = data4drawing[data4drawing.WB_NAME.isin(["Aksai Chin",
+                                                   "Arunachal Pradesh",
+                                                   "Abyei",
+                                                   "Demchok"])]
+    disp = gpd.GeoDataFrame(disp, geometry = disp.boundary)
+    sbor = data4drawing[data4drawing.TYPE.isin(["Special Border"])]
+    sborders = pd.concat([disp, sbor])
+
     # Creating tabs for displaying the results
     map_tab, table_tab = st.tabs(["Map", "Table"])
 
     with map_tab:
+        
         # Drawing map with matplotlib
         fig, ax = plt.subplots(1, 
-                            figsize = (25, 16),
-                            dpi     = 100)
+                               figsize = (width_in, height_in),
+                               dpi     = dpi)
+        
         data4drawing.plot(
             column       = target_variable, 
             cmap         = cmap,
-            linewidth    = 0.2,
+            linewidth    = 1,
             ax           = ax,
             edgecolor    = "#EBEBEB",
             legend       = True,
@@ -520,7 +550,7 @@ if submit_button:
         sborders.plot(
             ax           = ax,
             linestyle    = "dotted",
-            linewidth    = 0.45, 
+            linewidth    = 1, 
             color        = "#CCCCCC"
         )
         ax.axis("off")
@@ -537,8 +567,8 @@ if submit_button:
         st.download_button(label     = "Save map", 
                            data      = svg_file.getvalue(), 
                            file_name = "choropleth_map.svg",
-                           key       = "download-map")
-        
+                           key       = "download-map")  
+                
     with table_tab:
 
         buffer = io.BytesIO()
@@ -583,5 +613,7 @@ if submit_button:
             file_name = "color_map.xlsx",
             mime      = "application/vnd.ms-excel"
         )
+
+    
 
     

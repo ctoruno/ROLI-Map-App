@@ -212,11 +212,7 @@ with extension_container:
                         help       = extension_help)
 
     # Available Regions
-    UN_regions    = master_data["boundaries"]["REGION_UN"].dropna().unique().tolist()
-    UN_regions.remove(["Seven seas (open ocean)", 
-                       "Other"])
-    UN_subregions = master_data["boundaries"]["SUBREGION"].unique().tolist()
-    WB_regions    = master_data["boundaries"]["REGION_WB"].unique().tolist()
+    UN_regions    = ['Asia', 'Americas', 'Africa', 'Europe', 'Oceania']
     WJP_regions   = ['East Asia & Pacific',
                      'Eastern Europe and Central Asia',
                      'EU, EFTA, and North America',

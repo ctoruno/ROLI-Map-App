@@ -18,239 +18,240 @@
 16,Sovereign country,MWI,Africa,Eastern Africa,Sub-Saharan Africa,Malawi
 17,Sovereign country,TZA,Africa,Eastern Africa,Sub-Saharan Africa,Tanzania
 18,Sovereign country,SYR,Asia,Western Asia,Middle East & North Africa,Syrian Arab Republic
-19,Sovereign country,FRA,Europe,Western Europe,Europe & Central Asia,France
-20,Sovereign country,SUR,Americas,South America,Latin America & Caribbean,Suriname
-21,Sovereign country,GUY,Americas,South America,Latin America & Caribbean,Guyana
-22,Sovereign country,KOR,Asia,Eastern Asia,East Asia & Pacific,"Korea, Republic of"
-23,Sovereign country,PRK,Asia,Eastern Asia,East Asia & Pacific,"Korea, Democratic People's Republic of"
-24,Sovereign country,MAR,Africa,Northern Africa,Middle East & North Africa,Morocco
-25,Sovereign country,CRI,Americas,Central America,Latin America & Caribbean,Costa Rica
-26,Sovereign country,NIC,Americas,Central America,Latin America & Caribbean,Nicaragua
-27,Sovereign country,COG,Africa,Middle Africa,Sub-Saharan Africa,"Congo, Rep. of"
-28,Sovereign country,COD,Africa,Middle Africa,Sub-Saharan Africa,"Congo, Democratic Republic of"
-29,Sovereign country,BTN,Asia,Southern Asia,South Asia,Bhutan
-30,Sovereign country,UKR,Europe,Eastern Europe,Europe & Central Asia,Ukraine
-31,Sovereign country,BLR,Europe,Eastern Europe,Europe & Central Asia,Belarus
-32,Sovereign country,NAM,Africa,Southern Africa,Sub-Saharan Africa,Namibia
-33,Sovereign country,ZAF,Africa,Southern Africa,Sub-Saharan Africa,South Africa
-34,Dependency,MAF,Americas,Caribbean,Latin America & Caribbean,Saint-Martin (Fr.)
-35,Dependency,SXM,Americas,Caribbean,Latin America & Caribbean,Sint Maarten (Neth.)
-36,Sovereign country,OMN,Asia,Western Asia,Middle East & North Africa,Oman
-37,Sovereign country,UZB,Asia,Central Asia,Europe & Central Asia,Uzbekistan
-38,Sovereign country,KAZ,Asia,Central Asia,Europe & Central Asia,Kazakhstan
-39,Sovereign country,TJK,Asia,Central Asia,Europe & Central Asia,Tajikistan
-40,Sovereign country,LTU,Europe,Northern Europe,Europe & Central Asia,Lithuania
-41,Sovereign country,BRA,Americas,South America,Latin America & Caribbean,Brazil
-42,Sovereign country,URY,Americas,South America,Latin America & Caribbean,Uruguay
-43,Sovereign country,MNG,Asia,Eastern Asia,East Asia & Pacific,Mongolia
-44,Sovereign country,RUS,Europe,Eastern Europe,Europe & Central Asia,Russian Federation
-45,Sovereign country,CZE,Europe,Eastern Europe,Europe & Central Asia,Czech Republic
-46,Sovereign country,DEU,Europe,Western Europe,Europe & Central Asia,Germany
-47,Sovereign country,EST,Europe,Northern Europe,Europe & Central Asia,Estonia
-48,Sovereign country,LVA,Europe,Northern Europe,Europe & Central Asia,Latvia
-49,Sovereign country,NOR,Europe,Northern Europe,Europe & Central Asia,Norway
-50,Sovereign country,SWE,Europe,Northern Europe,Europe & Central Asia,Sweden
-51,Sovereign country,FIN,Europe,Northern Europe,Europe & Central Asia,Finland
-52,Sovereign country,VNM,Asia,South-Eastern Asia,East Asia & Pacific,Vietnam
-53,Sovereign country,KHM,Asia,South-Eastern Asia,East Asia & Pacific,Cambodia
-54,Sovereign country,LUX,Europe,Western Europe,Europe & Central Asia,Luxembourg
-55,Sovereign country,ARE,Asia,Western Asia,Middle East & North Africa,United Arab Emirates
-56,Sovereign country,BEL,Europe,Western Europe,Europe & Central Asia,Belgium
-57,Sovereign country,GEO,Asia,Western Asia,Europe & Central Asia,Georgia
-58,Sovereign country,MKD,Europe,Southern Europe,Europe & Central Asia,North Macedonia
-59,Sovereign country,ALB,Europe,Southern Europe,Europe & Central Asia,Albania
-60,Sovereign country,AZE,Asia,Western Asia,Europe & Central Asia,Azerbaijan
-61,Sovereign country,XKX,Europe,Southern Europe,Europe & Central Asia,Kosovo
-62,Sovereign country,TUR,Asia,Western Asia,Europe & Central Asia,Turkey
-63,Sovereign country,ESP,Europe,Southern Europe,Europe & Central Asia,Spain
-64,Sovereign country,LAO,Asia,South-Eastern Asia,East Asia & Pacific,Lao People's Democratic Republic
-65,Sovereign country,KGZ,Asia,Central Asia,Europe & Central Asia,Kyrgyz Republic
-66,Sovereign country,ARM,Asia,Western Asia,Europe & Central Asia,Armenia
-67,Sovereign country,DNK,Europe,Northern Europe,Europe & Central Asia,Denmark
-68,Sovereign country,LBY,Africa,Northern Africa,Middle East & North Africa,Libya
-69,Sovereign country,TUN,Africa,Northern Africa,Middle East & North Africa,Tunisia
-70,Sovereign country,ROU,Europe,Eastern Europe,Europe & Central Asia,Romania
-71,Sovereign country,HUN,Europe,Eastern Europe,Europe & Central Asia,Hungary
-72,Sovereign country,SVK,Europe,Eastern Europe,Europe & Central Asia,Slovak Republic
-73,Sovereign country,POL,Europe,Eastern Europe,Europe & Central Asia,Poland
-74,Sovereign country,IRL,Europe,Northern Europe,Europe & Central Asia,Ireland
-75,Sovereign country,GBR,Europe,Northern Europe,Europe & Central Asia,United Kingdom
-76,Sovereign country,GRC,Europe,Southern Europe,Europe & Central Asia,Greece
-77,Sovereign country,ZMB,Africa,Eastern Africa,Sub-Saharan Africa,Zambia
-78,Sovereign country,SLE,Africa,Western Africa,Sub-Saharan Africa,Sierra Leone
-79,Sovereign country,GIN,Africa,Western Africa,Sub-Saharan Africa,Guinea
-80,Sovereign country,LBR,Africa,Western Africa,Sub-Saharan Africa,Liberia
-81,Sovereign country,CAF,Africa,Middle Africa,Sub-Saharan Africa,Central African Republic
-82,Sovereign country,SDN,Africa,Northern Africa,Sub-Saharan Africa,Sudan
-83,Sovereign country,DJI,Africa,Eastern Africa,Middle East & North Africa,Djibouti
-84,Sovereign country,ERI,Africa,Eastern Africa,Sub-Saharan Africa,Eritrea
-85,Sovereign country,AUT,Europe,Western Europe,Europe & Central Asia,Austria
-86,Sovereign country,IRQ,Asia,Western Asia,Middle East & North Africa,Iraq
-87,Sovereign country,ITA,Europe,Southern Europe,Europe & Central Asia,Italy
-88,Sovereign country,CHE,Europe,Western Europe,Europe & Central Asia,Switzerland
-89,Sovereign country,IRN,Asia,Southern Asia,Middle East & North Africa,"Iran, Islamic Republic of"
-90,Sovereign country,LIE,Europe,Western Europe,Europe & Central Asia,Liechtenstein
-91,Sovereign country,CIV,Africa,Western Africa,Sub-Saharan Africa,Côte d'Ivoire
-92,Sovereign country,SRB,Europe,Southern Europe,Europe & Central Asia,Serbia
-93,Sovereign country,MLI,Africa,Western Africa,Sub-Saharan Africa,Mali
-94,Sovereign country,SEN,Africa,Western Africa,Sub-Saharan Africa,Senegal
-95,Sovereign country,NGA,Africa,Western Africa,Sub-Saharan Africa,Nigeria
-96,Sovereign country,BEN,Africa,Western Africa,Sub-Saharan Africa,Benin
-97,Sovereign country,AGO,Africa,Middle Africa,Sub-Saharan Africa,Angola
-98,Sovereign country,HRV,Europe,Southern Europe,Europe & Central Asia,Croatia
-99,Sovereign country,SVN,Europe,Southern Europe,Europe & Central Asia,Slovenia
-100,Sovereign country,QAT,Asia,Western Asia,Middle East & North Africa,Qatar
-101,Sovereign country,SAU,Asia,Western Asia,Middle East & North Africa,Saudi Arabia
-102,Sovereign country,BWA,Africa,Southern Africa,Sub-Saharan Africa,Botswana
-103,Sovereign country,ZWE,Africa,Eastern Africa,Sub-Saharan Africa,Zimbabwe
-104,Sovereign country,BGR,Europe,Eastern Europe,Europe & Central Asia,Bulgaria
-105,Sovereign country,THA,Asia,South-Eastern Asia,East Asia & Pacific,Thailand
-106,Sovereign country,SMR,Europe,Southern Europe,Europe & Central Asia,San Marino
-107,Sovereign country,HTI,Americas,Caribbean,Latin America & Caribbean,Haiti
-108,Sovereign country,DOM,Americas,Caribbean,Latin America & Caribbean,Dominican Republic
-109,Sovereign country,TCD,Africa,Middle Africa,Sub-Saharan Africa,Chad
-110,Sovereign country,KWT,Asia,Western Asia,Middle East & North Africa,Kuwait
-111,Sovereign country,SLV,Americas,Central America,Latin America & Caribbean,El Salvador
-112,Sovereign country,GTM,Americas,Central America,Latin America & Caribbean,Guatemala
-113,Sovereign country,TMP,Asia,South-Eastern Asia,East Asia & Pacific,Timor-Leste
-114,Sovereign country,BRN,Asia,South-Eastern Asia,East Asia & Pacific,Brunei Darussalam
-115,Sovereign country,MCO,Europe,Western Europe,Europe & Central Asia,Monaco
-116,Sovereign country,DZA,Africa,Northern Africa,Middle East & North Africa,Algeria
-117,Sovereign country,MOZ,Africa,Eastern Africa,Sub-Saharan Africa,Mozambique
-118,Sovereign country,SWZ,Africa,Southern Africa,Sub-Saharan Africa,eSwatini
-119,Sovereign country,BDI,Africa,Eastern Africa,Sub-Saharan Africa,Burundi
-120,Sovereign country,RWA,Africa,Eastern Africa,Sub-Saharan Africa,Rwanda
-121,Sovereign country,MMR,Asia,South-Eastern Asia,East Asia & Pacific,Myanmar
-122,Sovereign country,BGD,Asia,Southern Asia,South Asia,Bangladesh
-123,Sovereign country,ADO,Europe,Southern Europe,Europe & Central Asia,Andorra
-124,Sovereign country,AFG,Asia,Southern Asia,South Asia,Afghanistan
-125,Sovereign country,MNE,Europe,Southern Europe,Europe & Central Asia,Montenegro
-126,Sovereign country,BIH,Europe,Southern Europe,Europe & Central Asia,Bosnia and Herzegovina
-127,Sovereign country,UGA,Africa,Eastern Africa,Sub-Saharan Africa,Uganda
-128,Lease,XXX,Americas,Caribbean,Latin America & Caribbean,Guantanamo Bay (US)
-129,Sovereign country,CUB,Americas,Caribbean,Latin America & Caribbean,Cuba
-130,Sovereign country,HND,Americas,Central America,Latin America & Caribbean,Honduras
-131,Sovereign country,ECU,Americas,South America,Latin America & Caribbean,Ecuador
-132,Sovereign country,COL,Americas,South America,Latin America & Caribbean,Colombia
-133,Sovereign country,PRY,Americas,South America,Latin America & Caribbean,Paraguay
-134,Sovereign country,PRT,Europe,Southern Europe,Europe & Central Asia,Portugal
-135,Sovereign country,MDA,Europe,Eastern Europe,Europe & Central Asia,Moldova
-136,Sovereign country,TKM,Asia,Central Asia,Europe & Central Asia,Turkmenistan
-137,Sovereign country,JOR,Asia,Western Asia,Middle East & North Africa,Jordan
-138,Sovereign country,NPL,Asia,Southern Asia,South Asia,Nepal
-139,Sovereign country,LSO,Africa,Southern Africa,Sub-Saharan Africa,Lesotho
-140,Sovereign country,CMR,Africa,Middle Africa,Sub-Saharan Africa,Cameroon
-141,Sovereign country,GAB,Africa,Middle Africa,Sub-Saharan Africa,Gabon
-142,Sovereign country,NER,Africa,Western Africa,Sub-Saharan Africa,Niger
-143,Sovereign country,BFA,Africa,Western Africa,Sub-Saharan Africa,Burkina Faso
-144,Sovereign country,TGO,Africa,Western Africa,Sub-Saharan Africa,Togo
-145,Sovereign country,GHA,Africa,Western Africa,Sub-Saharan Africa,Ghana
-146,Sovereign country,GNB,Africa,Western Africa,Sub-Saharan Africa,Guinea-Bissau
-147,Dependency,GIB,Europe,Southern Europe,Europe & Central Asia,Gibraltar (UK)
-148,Sovereign country,USA,Americas,Northern America,North America,United States of America
-149,Sovereign country,CAN,Americas,Northern America,North America,Canada
-150,Sovereign country,MEX,Americas,Central America,Latin America & Caribbean,Mexico
-151,Sovereign country,BLZ,Americas,Central America,Latin America & Caribbean,Belize
-152,Sovereign country,PAN,Americas,Central America,Latin America & Caribbean,Panama
-153,Sovereign country,VEN,Americas,South America,Latin America & Caribbean,"Venezuela, Republica Bolivariana de"
-154,Sovereign country,PNG,Oceania,Melanesia,East Asia & Pacific,Papua New Guinea
-155,Sovereign country,EGY,Africa,Northern Africa,Middle East & North Africa,"Egypt, Arab Republic of"
-156,Sovereign country,YEM,Asia,Western Asia,Middle East & North Africa,"Yemen, Republic of"
-157,Sovereign country,MRT,Africa,Western Africa,Sub-Saharan Africa,Mauritania
-158,Sovereign country,GNQ,Africa,Middle Africa,Sub-Saharan Africa,Equatorial Guinea
-159,Sovereign country,GMB,Africa,Western Africa,Sub-Saharan Africa,"Gambia, The"
-160,Dependency,HKG,Asia,Eastern Asia,East Asia & Pacific,"Hong Kong (SAR, China)"
-161,Sovereign country,VAT,Europe,Southern Europe,Europe & Central Asia,Vatican City
-162,Sovereign country,AUS,Oceania,Australia and New Zealand,East Asia & Pacific,Australia
-163,Dependency,GRL,Americas,Northern America,Europe & Central Asia,Greenland (Den.)
-164,Sovereign country,FJI,Oceania,Melanesia,East Asia & Pacific,Fiji
-165,Dependency,NCL,Oceania,Melanesia,East Asia & Pacific,New Caledonia (Fr.)
-166,Sovereign country,MDG,Africa,Eastern Africa,Sub-Saharan Africa,Madagascar
-167,Sovereign country,PHL,Asia,South-Eastern Asia,East Asia & Pacific,Philippines
-168,Sovereign country,LKA,Asia,Southern Asia,South Asia,Sri Lanka
-169,Dependency,CUW,Americas,Caribbean,Latin America & Caribbean,Curaçao (Neth.)
-170,Dependency,ABW,Americas,Caribbean,Latin America & Caribbean,Aruba (Neth.)
-171,Sovereign country,BHS,Americas,Caribbean,Latin America & Caribbean,"Bahamas, The"
-172,Dependency,TCA,Americas,Caribbean,Latin America & Caribbean,Turks and Caicos Islands (UK)
-173,Sovereign country,JPN,Asia,Eastern Asia,East Asia & Pacific,Japan
-174,Dependency,SPM,Americas,Northern America,North America,Saint-Pierre-et-Miquelon (Fr.)
-175,Sovereign country,ISL,Europe,Northern Europe,Europe & Central Asia,Iceland
-176,Dependency,PCN,Oceania,Polynesia,East Asia & Pacific,Pitcairn Islands (UK)
-177,Dependency,PYF,Oceania,Polynesia,East Asia & Pacific,French Polynesia (Fr.)
-178,Dependency,ATF,Seven seas (open ocean),Seven seas (open ocean),Sub-Saharan Africa,French Southern and Antarctic Lands (Fr.)
-179,Sovereign country,SYC,Africa,Eastern Africa,Sub-Saharan Africa,Seychelles
-180,Sovereign country,KIR,Oceania,Micronesia,East Asia & Pacific,Kiribati
-181,Sovereign country,MHL,Oceania,Micronesia,East Asia & Pacific,Marshall Islands
-182,Sovereign country,TTO,Americas,Caribbean,Latin America & Caribbean,Trinidad and Tobago
-183,Sovereign country,GRD,Americas,Caribbean,Latin America & Caribbean,Grenada
-184,Sovereign country,VCT,Americas,Caribbean,Latin America & Caribbean,Saint Vincent and the Grenadines
-185,Sovereign country,BRB,Americas,Caribbean,Latin America & Caribbean,Barbados
-186,Sovereign country,LCA,Americas,Caribbean,Latin America & Caribbean,Saint Lucia
-187,Sovereign country,DMA,Americas,Caribbean,Latin America & Caribbean,Dominica
-188,Dependency,MSR,Americas,Caribbean,Latin America & Caribbean,Montserrat (UK)
-189,Sovereign country,ATG,Americas,Caribbean,Latin America & Caribbean,Antigua and Barbuda
-190,Sovereign country,KNA,Americas,Caribbean,Latin America & Caribbean,Saint Kitts and Nevis
-191,Dependency,VIR,Americas,Caribbean,Latin America & Caribbean,U.S. Virgin Islands (US)
-192,Dependency,BLM,Americas,Caribbean,Latin America & Caribbean,Saint-Barthélemy (Fr.)
-193,Dependency,PRI,Americas,Caribbean,Latin America & Caribbean,Puerto Rico (US)
-194,Dependency,AIA,Americas,Caribbean,Latin America & Caribbean,Anguilla (UK)
-195,Dependency,VGB,Americas,Caribbean,Latin America & Caribbean,British Virgin Islands (UK)
-196,Sovereign country,JAM,Americas,Caribbean,Latin America & Caribbean,Jamaica
-197,Dependency,CYM,Americas,Caribbean,Latin America & Caribbean,Cayman Islands (UK)
-198,Dependency,BMU,Americas,Northern America,North America,Bermuda (UK)
-199,Dependency,HMD,Seven seas (open ocean),Seven seas (open ocean),Sub-Saharan Africa,Heard Island and McDonald Islands (Aus.)
-200,Dependency,SHN,Africa,Western Africa,Sub-Saharan Africa,"Saint Helena, Ascension and Tristan da Cunha (UK)"
-201,Sovereign country,MUS,Africa,Eastern Africa,Sub-Saharan Africa,Mauritius
-202,Sovereign country,COM,Africa,Eastern Africa,Sub-Saharan Africa,Comoros
-203,Sovereign country,STP,Africa,Middle Africa,Sub-Saharan Africa,São Tomé and Príncipe
-204,Sovereign country,CPV,Africa,Western Africa,Sub-Saharan Africa,Cabo Verde
-205,Sovereign country,MLT,Europe,Southern Europe,Europe & Central Asia,Malta
-206,Dependency,JEY,Europe,Northern Europe,Europe & Central Asia,Jersey (UK)
-207,Dependency,GGY,Europe,Northern Europe,Europe & Central Asia,Guernsey (UK)
-208,Dependency,IMY,Europe,Northern Europe,Europe & Central Asia,Isle of Man (UK)
-209,Dependency,FRO,Europe,Northern Europe,Europe & Central Asia,Faroe Islands (Den.)
-210,Dependency,IOT,Seven seas (open ocean),Seven seas (open ocean),Sub-Saharan Africa,British Indian Ocean Territory (UK)
-211,Sovereign country,SGP,Asia,South-Eastern Asia,East Asia & Pacific,Singapore
-212,Dependency,NFK,Oceania,Australia and New Zealand,East Asia & Pacific,Norfolk Island (Aus.)
-213,Dependency,COK,Oceania,Polynesia,East Asia & Pacific,Cook Islands (NZ)
-214,Sovereign country,TON,Oceania,Polynesia,East Asia & Pacific,Tonga
-215,Dependency,WLF,Oceania,Polynesia,East Asia & Pacific,Wallis-et-Futuna (Fr.)
-216,Sovereign country,WSM,Oceania,Polynesia,East Asia & Pacific,Samoa
-217,Sovereign country,SLB,Oceania,Melanesia,East Asia & Pacific,Solomon Islands
-218,Sovereign country,TUV,Oceania,Polynesia,East Asia & Pacific,Tuvalu
-219,Sovereign country,MDV,Asia,Southern Asia,South Asia,Maldives
-220,Sovereign country,NRU,Oceania,Micronesia,East Asia & Pacific,Nauru
-221,Sovereign country,FSM,Oceania,Micronesia,East Asia & Pacific,"Micronesia, Federated States of"
-222,Dependency,SGS,Seven seas (open ocean),Seven seas (open ocean),Antarctica,South Georgia and South Sandwich Islands (UK)
-223,Dependency,FLK,Americas,South America,Latin America & Caribbean,Falkland Islands (UK)/Islas Malvinas
-224,Sovereign country,VUT,Oceania,Melanesia,East Asia & Pacific,Vanuatu
-225,Dependency,NIU,Oceania,Polynesia,East Asia & Pacific,Niue (NZ)
-226,Dependency,ASM,Oceania,Polynesia,East Asia & Pacific,American Samoa (US)
-227,Sovereign country,PLW,Oceania,Micronesia,East Asia & Pacific,Palau
-228,Dependency,GUM,Oceania,Micronesia,East Asia & Pacific,Guam (US)
-229,Dependency,MNP,Oceania,Micronesia,East Asia & Pacific,Northern Mariana Islands (US)
-230,Sovereign country,BHR,Asia,Western Asia,Middle East & North Africa,Bahrain
-231,Dependency,FRA-OT,Americas,Central America,Latin America & Caribbean,Clipperton Island (Fr.)
-232,Dependency,MAC,Asia,Eastern Asia,East Asia & Pacific,"Macau (SAR, China)"
-233,Dependency,BES,Europe,Western Europe,Europe & Central Asia,Bonaire (Neth.)
-234,Dependency,BES,Europe,Western Europe,Europe & Central Asia,Sint Eustatius (Neth.)
-235,Dependency,BES,Europe,Western Europe,Europe & Central Asia,Saba (Neth.)
-236,Sovereign country,NLD,Europe,Western Europe,Europe & Central Asia,Netherlands
-237,Dependency,CCK,Seven seas (open ocean),Seven seas (open ocean),East Asia & Pacific,Cocos (Keeling) Islands (Aus.)
-238,Dependency,CXR,Seven seas (open ocean),Seven seas (open ocean),East Asia & Pacific,Christmas Island (Aus.)
-239,Dependency,UMI,Seven seas (open ocean),Seven seas (open ocean),East Asia & Pacific,Johnston Atoll (US)
-240,Dependency,UMI,Seven seas (open ocean),Seven seas (open ocean),East Asia & Pacific,Jarvis Island (US)
-241,Dependency,UMI,Seven seas (open ocean),Seven seas (open ocean),East Asia & Pacific,Baker Island (US)
-242,Dependency,UMI,Seven seas (open ocean),Seven seas (open ocean),East Asia & Pacific,Howland Island (US)
-243,Dependency,UMI,Seven seas (open ocean),Seven seas (open ocean),East Asia & Pacific,Wake Island (US)
-244,Dependency,UMI,Seven seas (open ocean),Seven seas (open ocean),East Asia & Pacific,Midway Islands (US)
-245,Dependency,USA-OT,Seven seas (open ocean),Seven seas (open ocean),East Asia & Pacific,Navassa Island (US)
-246,Dependency,UMI,Seven seas (open ocean),Seven seas (open ocean),East Asia & Pacific,Palmyra Atoll (US)
-247,Dependency,UMI,Seven seas (open ocean),Seven seas (open ocean),East Asia & Pacific,Kingman Reef (US)
-248,Dependency,TKL,Oceania,Australia and New Zealand,East Asia & Pacific,Tokelau (NZ)
-249,Sovereign country,NZL,Oceania,Australia and New Zealand,East Asia & Pacific,New Zealand
-250,Sovereign country,CHN,Asia,Eastern Asia,East Asia & Pacific,China
-251,Sovereign country,TWN,Asia,Eastern Asia,East Asia & Pacific,Taiwan
+19,Sovereign country,SUR,Americas,South America,Latin America & Caribbean,Suriname
+20,Sovereign country,GUY,Americas,South America,Latin America & Caribbean,Guyana
+21,Sovereign country,KOR,Asia,Eastern Asia,East Asia & Pacific,"Korea, Republic of"
+22,Sovereign country,PRK,Asia,Eastern Asia,East Asia & Pacific,"Korea, Democratic People's Republic of"
+23,Sovereign country,MAR,Africa,Northern Africa,Middle East & North Africa,Morocco
+24,Sovereign country,CRI,Americas,Central America,Latin America & Caribbean,Costa Rica
+25,Sovereign country,NIC,Americas,Central America,Latin America & Caribbean,Nicaragua
+26,Sovereign country,COG,Africa,Middle Africa,Sub-Saharan Africa,"Congo, Rep. of"
+27,Sovereign country,COD,Africa,Middle Africa,Sub-Saharan Africa,"Congo, Democratic Republic of"
+28,Sovereign country,BTN,Asia,Southern Asia,South Asia,Bhutan
+29,Sovereign country,UKR,Europe,Eastern Europe,Europe & Central Asia,Ukraine
+30,Sovereign country,BLR,Europe,Eastern Europe,Europe & Central Asia,Belarus
+31,Sovereign country,NAM,Africa,Southern Africa,Sub-Saharan Africa,Namibia
+32,Sovereign country,ZAF,Africa,Southern Africa,Sub-Saharan Africa,South Africa
+33,Dependency,MAF,Americas,Caribbean,Latin America & Caribbean,Saint-Martin (Fr.)
+34,Dependency,SXM,Americas,Caribbean,Latin America & Caribbean,Sint Maarten (Neth.)
+35,Sovereign country,OMN,Asia,Western Asia,Middle East & North Africa,Oman
+36,Sovereign country,UZB,Asia,Central Asia,Europe & Central Asia,Uzbekistan
+37,Sovereign country,KAZ,Asia,Central Asia,Europe & Central Asia,Kazakhstan
+38,Sovereign country,TJK,Asia,Central Asia,Europe & Central Asia,Tajikistan
+39,Sovereign country,LTU,Europe,Northern Europe,Europe & Central Asia,Lithuania
+40,Sovereign country,BRA,Americas,South America,Latin America & Caribbean,Brazil
+41,Sovereign country,URY,Americas,South America,Latin America & Caribbean,Uruguay
+42,Sovereign country,MNG,Asia,Eastern Asia,East Asia & Pacific,Mongolia
+43,Sovereign country,RUS,Europe,Eastern Europe,Europe & Central Asia,Russian Federation
+44,Sovereign country,CZE,Europe,Eastern Europe,Europe & Central Asia,Czech Republic
+45,Sovereign country,DEU,Europe,Western Europe,Europe & Central Asia,Germany
+46,Sovereign country,EST,Europe,Northern Europe,Europe & Central Asia,Estonia
+47,Sovereign country,LVA,Europe,Northern Europe,Europe & Central Asia,Latvia
+48,Sovereign country,NOR,Europe,Northern Europe,Europe & Central Asia,Norway
+49,Sovereign country,SWE,Europe,Northern Europe,Europe & Central Asia,Sweden
+50,Sovereign country,FIN,Europe,Northern Europe,Europe & Central Asia,Finland
+51,Sovereign country,VNM,Asia,South-Eastern Asia,East Asia & Pacific,Vietnam
+52,Sovereign country,KHM,Asia,South-Eastern Asia,East Asia & Pacific,Cambodia
+53,Sovereign country,LUX,Europe,Western Europe,Europe & Central Asia,Luxembourg
+54,Sovereign country,ARE,Asia,Western Asia,Middle East & North Africa,United Arab Emirates
+55,Sovereign country,BEL,Europe,Western Europe,Europe & Central Asia,Belgium
+56,Sovereign country,GEO,Asia,Western Asia,Europe & Central Asia,Georgia
+57,Sovereign country,MKD,Europe,Southern Europe,Europe & Central Asia,North Macedonia
+58,Sovereign country,ALB,Europe,Southern Europe,Europe & Central Asia,Albania
+59,Sovereign country,AZE,Asia,Western Asia,Europe & Central Asia,Azerbaijan
+60,Sovereign country,XKX,Europe,Southern Europe,Europe & Central Asia,Kosovo
+61,Sovereign country,TUR,Asia,Western Asia,Europe & Central Asia,Turkey
+62,Sovereign country,ESP,Europe,Southern Europe,Europe & Central Asia,Spain
+63,Sovereign country,LAO,Asia,South-Eastern Asia,East Asia & Pacific,Lao People's Democratic Republic
+64,Sovereign country,KGZ,Asia,Central Asia,Europe & Central Asia,Kyrgyz Republic
+65,Sovereign country,ARM,Asia,Western Asia,Europe & Central Asia,Armenia
+66,Sovereign country,DNK,Europe,Northern Europe,Europe & Central Asia,Denmark
+67,Sovereign country,LBY,Africa,Northern Africa,Middle East & North Africa,Libya
+68,Sovereign country,TUN,Africa,Northern Africa,Middle East & North Africa,Tunisia
+69,Sovereign country,ROU,Europe,Eastern Europe,Europe & Central Asia,Romania
+70,Sovereign country,HUN,Europe,Eastern Europe,Europe & Central Asia,Hungary
+71,Sovereign country,SVK,Europe,Eastern Europe,Europe & Central Asia,Slovak Republic
+72,Sovereign country,POL,Europe,Eastern Europe,Europe & Central Asia,Poland
+73,Sovereign country,IRL,Europe,Northern Europe,Europe & Central Asia,Ireland
+74,Sovereign country,GBR,Europe,Northern Europe,Europe & Central Asia,United Kingdom
+75,Sovereign country,GRC,Europe,Southern Europe,Europe & Central Asia,Greece
+76,Sovereign country,ZMB,Africa,Eastern Africa,Sub-Saharan Africa,Zambia
+77,Sovereign country,SLE,Africa,Western Africa,Sub-Saharan Africa,Sierra Leone
+78,Sovereign country,GIN,Africa,Western Africa,Sub-Saharan Africa,Guinea
+79,Sovereign country,LBR,Africa,Western Africa,Sub-Saharan Africa,Liberia
+80,Sovereign country,CAF,Africa,Middle Africa,Sub-Saharan Africa,Central African Republic
+81,Sovereign country,SDN,Africa,Northern Africa,Sub-Saharan Africa,Sudan
+82,Sovereign country,DJI,Africa,Eastern Africa,Middle East & North Africa,Djibouti
+83,Sovereign country,ERI,Africa,Eastern Africa,Sub-Saharan Africa,Eritrea
+84,Sovereign country,AUT,Europe,Western Europe,Europe & Central Asia,Austria
+85,Sovereign country,IRQ,Asia,Western Asia,Middle East & North Africa,Iraq
+86,Sovereign country,ITA,Europe,Southern Europe,Europe & Central Asia,Italy
+87,Sovereign country,CHE,Europe,Western Europe,Europe & Central Asia,Switzerland
+88,Sovereign country,IRN,Asia,Southern Asia,Middle East & North Africa,"Iran, Islamic Republic of"
+89,Sovereign country,LIE,Europe,Western Europe,Europe & Central Asia,Liechtenstein
+90,Sovereign country,CIV,Africa,Western Africa,Sub-Saharan Africa,Côte d'Ivoire
+91,Sovereign country,SRB,Europe,Southern Europe,Europe & Central Asia,Serbia
+92,Sovereign country,MLI,Africa,Western Africa,Sub-Saharan Africa,Mali
+93,Sovereign country,SEN,Africa,Western Africa,Sub-Saharan Africa,Senegal
+94,Sovereign country,NGA,Africa,Western Africa,Sub-Saharan Africa,Nigeria
+95,Sovereign country,BEN,Africa,Western Africa,Sub-Saharan Africa,Benin
+96,Sovereign country,AGO,Africa,Middle Africa,Sub-Saharan Africa,Angola
+97,Sovereign country,HRV,Europe,Southern Europe,Europe & Central Asia,Croatia
+98,Sovereign country,SVN,Europe,Southern Europe,Europe & Central Asia,Slovenia
+99,Sovereign country,QAT,Asia,Western Asia,Middle East & North Africa,Qatar
+100,Sovereign country,SAU,Asia,Western Asia,Middle East & North Africa,Saudi Arabia
+101,Sovereign country,BWA,Africa,Southern Africa,Sub-Saharan Africa,Botswana
+102,Sovereign country,ZWE,Africa,Eastern Africa,Sub-Saharan Africa,Zimbabwe
+103,Sovereign country,BGR,Europe,Eastern Europe,Europe & Central Asia,Bulgaria
+104,Sovereign country,THA,Asia,South-Eastern Asia,East Asia & Pacific,Thailand
+105,Sovereign country,SMR,Europe,Southern Europe,Europe & Central Asia,San Marino
+106,Sovereign country,HTI,Americas,Caribbean,Latin America & Caribbean,Haiti
+107,Sovereign country,DOM,Americas,Caribbean,Latin America & Caribbean,Dominican Republic
+108,Sovereign country,TCD,Africa,Middle Africa,Sub-Saharan Africa,Chad
+109,Sovereign country,KWT,Asia,Western Asia,Middle East & North Africa,Kuwait
+110,Sovereign country,SLV,Americas,Central America,Latin America & Caribbean,El Salvador
+111,Sovereign country,GTM,Americas,Central America,Latin America & Caribbean,Guatemala
+112,Sovereign country,TMP,Asia,South-Eastern Asia,East Asia & Pacific,Timor-Leste
+113,Sovereign country,BRN,Asia,South-Eastern Asia,East Asia & Pacific,Brunei Darussalam
+114,Sovereign country,MCO,Europe,Western Europe,Europe & Central Asia,Monaco
+115,Sovereign country,DZA,Africa,Northern Africa,Middle East & North Africa,Algeria
+116,Sovereign country,MOZ,Africa,Eastern Africa,Sub-Saharan Africa,Mozambique
+117,Sovereign country,SWZ,Africa,Southern Africa,Sub-Saharan Africa,eSwatini
+118,Sovereign country,BDI,Africa,Eastern Africa,Sub-Saharan Africa,Burundi
+119,Sovereign country,RWA,Africa,Eastern Africa,Sub-Saharan Africa,Rwanda
+120,Sovereign country,MMR,Asia,South-Eastern Asia,East Asia & Pacific,Myanmar
+121,Sovereign country,BGD,Asia,Southern Asia,South Asia,Bangladesh
+122,Sovereign country,ADO,Europe,Southern Europe,Europe & Central Asia,Andorra
+123,Sovereign country,AFG,Asia,Southern Asia,South Asia,Afghanistan
+124,Sovereign country,MNE,Europe,Southern Europe,Europe & Central Asia,Montenegro
+125,Sovereign country,BIH,Europe,Southern Europe,Europe & Central Asia,Bosnia and Herzegovina
+126,Sovereign country,UGA,Africa,Eastern Africa,Sub-Saharan Africa,Uganda
+127,Lease,XXX,Americas,Caribbean,Latin America & Caribbean,Guantanamo Bay (US)
+128,Sovereign country,CUB,Americas,Caribbean,Latin America & Caribbean,Cuba
+129,Sovereign country,HND,Americas,Central America,Latin America & Caribbean,Honduras
+130,Sovereign country,ECU,Americas,South America,Latin America & Caribbean,Ecuador
+131,Sovereign country,COL,Americas,South America,Latin America & Caribbean,Colombia
+132,Sovereign country,PRY,Americas,South America,Latin America & Caribbean,Paraguay
+133,Sovereign country,PRT,Europe,Southern Europe,Europe & Central Asia,Portugal
+134,Sovereign country,MDA,Europe,Eastern Europe,Europe & Central Asia,Moldova
+135,Sovereign country,TKM,Asia,Central Asia,Europe & Central Asia,Turkmenistan
+136,Sovereign country,JOR,Asia,Western Asia,Middle East & North Africa,Jordan
+137,Sovereign country,NPL,Asia,Southern Asia,South Asia,Nepal
+138,Sovereign country,LSO,Africa,Southern Africa,Sub-Saharan Africa,Lesotho
+139,Sovereign country,CMR,Africa,Middle Africa,Sub-Saharan Africa,Cameroon
+140,Sovereign country,GAB,Africa,Middle Africa,Sub-Saharan Africa,Gabon
+141,Sovereign country,NER,Africa,Western Africa,Sub-Saharan Africa,Niger
+142,Sovereign country,BFA,Africa,Western Africa,Sub-Saharan Africa,Burkina Faso
+143,Sovereign country,TGO,Africa,Western Africa,Sub-Saharan Africa,Togo
+144,Sovereign country,GHA,Africa,Western Africa,Sub-Saharan Africa,Ghana
+145,Sovereign country,GNB,Africa,Western Africa,Sub-Saharan Africa,Guinea-Bissau
+146,Dependency,GIB,Europe,Southern Europe,Europe & Central Asia,Gibraltar (UK)
+147,Sovereign country,USA,Americas,Northern America,North America,United States of America
+148,Sovereign country,CAN,Americas,Northern America,North America,Canada
+149,Sovereign country,MEX,Americas,Central America,Latin America & Caribbean,Mexico
+150,Sovereign country,BLZ,Americas,Central America,Latin America & Caribbean,Belize
+151,Sovereign country,PAN,Americas,Central America,Latin America & Caribbean,Panama
+152,Sovereign country,VEN,Americas,South America,Latin America & Caribbean,"Venezuela, Republica Bolivariana de"
+153,Sovereign country,PNG,Oceania,Melanesia,East Asia & Pacific,Papua New Guinea
+154,Sovereign country,EGY,Africa,Northern Africa,Middle East & North Africa,"Egypt, Arab Republic of"
+155,Sovereign country,YEM,Asia,Western Asia,Middle East & North Africa,"Yemen, Republic of"
+156,Sovereign country,MRT,Africa,Western Africa,Sub-Saharan Africa,Mauritania
+157,Sovereign country,GNQ,Africa,Middle Africa,Sub-Saharan Africa,Equatorial Guinea
+158,Sovereign country,GMB,Africa,Western Africa,Sub-Saharan Africa,"Gambia, The"
+159,Dependency,HKG,Asia,Eastern Asia,East Asia & Pacific,"Hong Kong (SAR, China)"
+160,Sovereign country,VAT,Europe,Southern Europe,Europe & Central Asia,Vatican City
+161,Sovereign country,AUS,Oceania,Australia and New Zealand,East Asia & Pacific,Australia
+162,Dependency,GRL,Americas,Northern America,Europe & Central Asia,Greenland (Den.)
+163,Sovereign country,FJI,Oceania,Melanesia,East Asia & Pacific,Fiji
+164,Dependency,NCL,Oceania,Melanesia,East Asia & Pacific,New Caledonia (Fr.)
+165,Sovereign country,MDG,Africa,Eastern Africa,Sub-Saharan Africa,Madagascar
+166,Sovereign country,PHL,Asia,South-Eastern Asia,East Asia & Pacific,Philippines
+167,Sovereign country,LKA,Asia,Southern Asia,South Asia,Sri Lanka
+168,Dependency,CUW,Americas,Caribbean,Latin America & Caribbean,Curaçao (Neth.)
+169,Dependency,ABW,Americas,Caribbean,Latin America & Caribbean,Aruba (Neth.)
+170,Sovereign country,BHS,Americas,Caribbean,Latin America & Caribbean,"Bahamas, The"
+171,Dependency,TCA,Americas,Caribbean,Latin America & Caribbean,Turks and Caicos Islands (UK)
+172,Sovereign country,JPN,Asia,Eastern Asia,East Asia & Pacific,Japan
+173,Dependency,SPM,Americas,Northern America,North America,Saint-Pierre-et-Miquelon (Fr.)
+174,Sovereign country,ISL,Europe,Northern Europe,Europe & Central Asia,Iceland
+175,Dependency,PCN,Oceania,Polynesia,East Asia & Pacific,Pitcairn Islands (UK)
+176,Dependency,PYF,Oceania,Polynesia,East Asia & Pacific,French Polynesia (Fr.)
+177,Dependency,ATF,Seven seas (open ocean),Seven seas (open ocean),Sub-Saharan Africa,French Southern and Antarctic Lands (Fr.)
+178,Sovereign country,SYC,Africa,Eastern Africa,Sub-Saharan Africa,Seychelles
+179,Sovereign country,KIR,Oceania,Micronesia,East Asia & Pacific,Kiribati
+180,Sovereign country,MHL,Oceania,Micronesia,East Asia & Pacific,Marshall Islands
+181,Sovereign country,TTO,Americas,Caribbean,Latin America & Caribbean,Trinidad and Tobago
+182,Sovereign country,GRD,Americas,Caribbean,Latin America & Caribbean,Grenada
+183,Sovereign country,VCT,Americas,Caribbean,Latin America & Caribbean,Saint Vincent and the Grenadines
+184,Sovereign country,BRB,Americas,Caribbean,Latin America & Caribbean,Barbados
+185,Sovereign country,LCA,Americas,Caribbean,Latin America & Caribbean,Saint Lucia
+186,Sovereign country,DMA,Americas,Caribbean,Latin America & Caribbean,Dominica
+187,Dependency,MSR,Americas,Caribbean,Latin America & Caribbean,Montserrat (UK)
+188,Sovereign country,ATG,Americas,Caribbean,Latin America & Caribbean,Antigua and Barbuda
+189,Sovereign country,KNA,Americas,Caribbean,Latin America & Caribbean,Saint Kitts and Nevis
+190,Dependency,VIR,Americas,Caribbean,Latin America & Caribbean,U.S. Virgin Islands (US)
+191,Dependency,BLM,Americas,Caribbean,Latin America & Caribbean,Saint-Barthélemy (Fr.)
+192,Dependency,PRI,Americas,Caribbean,Latin America & Caribbean,Puerto Rico (US)
+193,Dependency,AIA,Americas,Caribbean,Latin America & Caribbean,Anguilla (UK)
+194,Dependency,VGB,Americas,Caribbean,Latin America & Caribbean,British Virgin Islands (UK)
+195,Sovereign country,JAM,Americas,Caribbean,Latin America & Caribbean,Jamaica
+196,Dependency,CYM,Americas,Caribbean,Latin America & Caribbean,Cayman Islands (UK)
+197,Dependency,BMU,Americas,Northern America,North America,Bermuda (UK)
+198,Dependency,HMD,Seven seas (open ocean),Seven seas (open ocean),Sub-Saharan Africa,Heard Island and McDonald Islands (Aus.)
+199,Dependency,SHN,Africa,Western Africa,Sub-Saharan Africa,"Saint Helena, Ascension and Tristan da Cunha (UK)"
+200,Sovereign country,MUS,Africa,Eastern Africa,Sub-Saharan Africa,Mauritius
+201,Sovereign country,COM,Africa,Eastern Africa,Sub-Saharan Africa,Comoros
+202,Sovereign country,STP,Africa,Middle Africa,Sub-Saharan Africa,São Tomé and Príncipe
+203,Sovereign country,CPV,Africa,Western Africa,Sub-Saharan Africa,Cabo Verde
+204,Sovereign country,MLT,Europe,Southern Europe,Europe & Central Asia,Malta
+205,Dependency,JEY,Europe,Northern Europe,Europe & Central Asia,Jersey (UK)
+206,Dependency,GGY,Europe,Northern Europe,Europe & Central Asia,Guernsey (UK)
+207,Dependency,IMY,Europe,Northern Europe,Europe & Central Asia,Isle of Man (UK)
+208,Dependency,FRO,Europe,Northern Europe,Europe & Central Asia,Faroe Islands (Den.)
+209,Dependency,IOT,Seven seas (open ocean),Seven seas (open ocean),Sub-Saharan Africa,British Indian Ocean Territory (UK)
+210,Sovereign country,SGP,Asia,South-Eastern Asia,East Asia & Pacific,Singapore
+211,Dependency,NFK,Oceania,Australia and New Zealand,East Asia & Pacific,Norfolk Island (Aus.)
+212,Dependency,COK,Oceania,Polynesia,East Asia & Pacific,Cook Islands (NZ)
+213,Sovereign country,TON,Oceania,Polynesia,East Asia & Pacific,Tonga
+214,Dependency,WLF,Oceania,Polynesia,East Asia & Pacific,Wallis-et-Futuna (Fr.)
+215,Sovereign country,WSM,Oceania,Polynesia,East Asia & Pacific,Samoa
+216,Sovereign country,SLB,Oceania,Melanesia,East Asia & Pacific,Solomon Islands
+217,Sovereign country,TUV,Oceania,Polynesia,East Asia & Pacific,Tuvalu
+218,Sovereign country,MDV,Asia,Southern Asia,South Asia,Maldives
+219,Sovereign country,NRU,Oceania,Micronesia,East Asia & Pacific,Nauru
+220,Sovereign country,FSM,Oceania,Micronesia,East Asia & Pacific,"Micronesia, Federated States of"
+221,Dependency,SGS,Seven seas (open ocean),Seven seas (open ocean),Antarctica,South Georgia and South Sandwich Islands (UK)
+222,Dependency,FLK,Americas,South America,Latin America & Caribbean,Falkland Islands (UK)/Islas Malvinas
+223,Sovereign country,VUT,Oceania,Melanesia,East Asia & Pacific,Vanuatu
+224,Dependency,NIU,Oceania,Polynesia,East Asia & Pacific,Niue (NZ)
+225,Dependency,ASM,Oceania,Polynesia,East Asia & Pacific,American Samoa (US)
+226,Sovereign country,PLW,Oceania,Micronesia,East Asia & Pacific,Palau
+227,Dependency,GUM,Oceania,Micronesia,East Asia & Pacific,Guam (US)
+228,Dependency,MNP,Oceania,Micronesia,East Asia & Pacific,Northern Mariana Islands (US)
+229,Sovereign country,BHR,Asia,Western Asia,Middle East & North Africa,Bahrain
+230,Dependency,FRA-OT,Americas,Central America,Latin America & Caribbean,Clipperton Island (Fr.)
+231,Dependency,MAC,Asia,Eastern Asia,East Asia & Pacific,"Macau (SAR, China)"
+232,Dependency,BES,Europe,Western Europe,Europe & Central Asia,Bonaire (Neth.)
+233,Dependency,BES,Europe,Western Europe,Europe & Central Asia,Sint Eustatius (Neth.)
+234,Dependency,BES,Europe,Western Europe,Europe & Central Asia,Saba (Neth.)
+235,Sovereign country,NLD,Europe,Western Europe,Europe & Central Asia,Netherlands
+236,Dependency,CCK,Seven seas (open ocean),Seven seas (open ocean),East Asia & Pacific,Cocos (Keeling) Islands (Aus.)
+237,Dependency,CXR,Seven seas (open ocean),Seven seas (open ocean),East Asia & Pacific,Christmas Island (Aus.)
+238,Dependency,UMI,Seven seas (open ocean),Seven seas (open ocean),East Asia & Pacific,Johnston Atoll (US)
+239,Dependency,UMI,Seven seas (open ocean),Seven seas (open ocean),East Asia & Pacific,Jarvis Island (US)
+240,Dependency,UMI,Seven seas (open ocean),Seven seas (open ocean),East Asia & Pacific,Baker Island (US)
+241,Dependency,UMI,Seven seas (open ocean),Seven seas (open ocean),East Asia & Pacific,Howland Island (US)
+242,Dependency,UMI,Seven seas (open ocean),Seven seas (open ocean),East Asia & Pacific,Wake Island (US)
+243,Dependency,UMI,Seven seas (open ocean),Seven seas (open ocean),East Asia & Pacific,Midway Islands (US)
+244,Dependency,USA-OT,Seven seas (open ocean),Seven seas (open ocean),East Asia & Pacific,Navassa Island (US)
+245,Dependency,UMI,Seven seas (open ocean),Seven seas (open ocean),East Asia & Pacific,Palmyra Atoll (US)
+246,Dependency,UMI,Seven seas (open ocean),Seven seas (open ocean),East Asia & Pacific,Kingman Reef (US)
+247,Dependency,TKL,Oceania,Australia and New Zealand,East Asia & Pacific,Tokelau (NZ)
+248,Sovereign country,NZL,Oceania,Australia and New Zealand,East Asia & Pacific,New Zealand
+249,Sovereign country,CHN,Asia,Eastern Asia,East Asia & Pacific,China
+250,Sovereign country,TWN,Asia,Eastern Asia,East Asia & Pacific,Taiwan
+251,Sovereign country,FRA,Europe,Western Europe,Europe & Central Asia,France
+252,Dependency,FRA-OT,Other,Other,Europe & Central Asia,France Oversees Territories
 0,Disputed,XXX,Asia,Eastern Asia,East Asia & Pacific,Aksai Chin
 1,Disputed,XXX,Asia,Southern Asia,South Asia,Arunachal Pradesh
 2,Disputed,ESH,Africa,Northern Africa,Middle East & North Africa,Western Sahara

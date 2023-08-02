@@ -13,7 +13,7 @@ import os
 import numpy as np
 import geopandas as gpd
 import pandas as pd
-# from shapely.ops import unary_union
+from shapely.geometry import box
 
 # Defining path to data files
 path2data = os.path.join(os.path.dirname(__file__), 
@@ -61,9 +61,10 @@ raw_boundaries.loc[raw_boundaries["WB_A3"] == "ZAR", "WB_A3"] = "COD"
 raw_boundaries.loc[raw_boundaries["WB_A3"] == "KSV", "WB_A3"] = "XKX"
 raw_boundaries.loc[raw_boundaries["WB_A3"] == "ROM", "WB_A3"] = "ROU"
 
+# FIXING THE TAIWAN-CHINA ISSUE
 # Splitting China's geometries
 china    = raw_boundaries.loc[raw_boundaries["WB_A3"] == "CHN"]
-exploded = china.explode().reset_index(drop = True)
+china_ex = china.explode(index_parts = True).reset_index(drop = True)
 
 # Using the area I am able to identify Taiwan as row #31
 # exploded["area_m2"] = (exploded
@@ -74,18 +75,50 @@ exploded = china.explode().reset_index(drop = True)
 #                                     ascending = False)
 
 # Manually inputting Taiwan's info
-exploded.at[31, 'WB_A3']   = "TWN"
-exploded.at[31, 'NAME_EN'] = "Taiwan"
-exploded.at[31, 'WB_NAME'] = "Taiwan"
+china_ex.at[31, 'WB_A3']   = "TWN"
+china_ex.at[31, 'NAME_EN'] = "Taiwan"
+china_ex.at[31, 'WB_NAME'] = "Taiwan"
 
 # Disolving exploded geopandas for China
-china = (exploded
+china = (china_ex
          .dissolve(by      = "WB_A3",
                    aggfunc = "first")).reset_index()
 
 # Appending china+taiwan geopandas to raw_boundaries
 raw_boundaries = (pd.concat([raw_boundaries.loc[raw_boundaries["WB_A3"] != "CHN"],
                              china],
+                             ignore_index = True))
+
+# FIXING THE FRANCE OVERSEES TERRITORIES ISSUE
+# Splitting France's geometries
+france    = raw_boundaries.loc[raw_boundaries["WB_A3"] == "FRA"]
+france_ex = france.explode(index_parts = True).reset_index(drop = True)
+
+# Continental France bounding box
+FRbox  = box(-16.4, 34, 23, 52.5)
+
+# Define a function to check if the feature's geometry falls within FRA bounding box
+def location_checker(row):
+    if row.geometry.within(FRbox):
+        return "France"
+    else:
+        return "France Oversees Territories"
+
+# Adjusting info of the Oversees Territories
+france_ex["WB_NAME"] = france_ex.apply(location_checker, axis=1)
+france_ex.loc[france_ex["WB_NAME"] == "France Oversees Territories", "TYPE"]  = "Dependency"
+france_ex.loc[france_ex["WB_NAME"] == "France Oversees Territories", "WB_A3"] = "FRA-OT"
+france_ex.loc[france_ex["WB_NAME"] == "France Oversees Territories", "REGION_UN"] = "Other"
+france_ex.loc[france_ex["WB_NAME"] == "France Oversees Territories", "SUBREGION"] = "Other"
+
+# Disolving exploded geopandas for France
+france = (france_ex
+          .dissolve(by      = "WB_A3",
+                    aggfunc = "first")).reset_index()
+
+# Appending china+taiwan geopandas to raw_boundaries
+raw_boundaries = (pd.concat([raw_boundaries.loc[raw_boundaries["WB_A3"] != "FRA"],
+                             france],
                              ignore_index = True))
 
 # Loading Disputed Territories GeoJSON

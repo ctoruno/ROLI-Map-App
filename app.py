@@ -536,7 +536,7 @@ if submit_button:
         data4drawing.plot(
             column       = target_variable, 
             cmap         = cmap,
-            linewidth    = 1,
+            linewidth    = linewidth,
             ax           = ax,
             edgecolor    = "#EBEBEB",
             legend       = True,
@@ -547,7 +547,7 @@ if submit_button:
         sborders.plot(
             ax           = ax,
             linestyle    = "dotted",
-            linewidth    = 1, 
+            linewidth    = linewidth, 
             color        = "#CCCCCC"
         )
         ax.axis("off")

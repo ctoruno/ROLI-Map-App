@@ -515,13 +515,13 @@ if submit_button:
     # st.plotly_chart(fig)
 
     # Creating a special borders geo-data-frame
-    disp = data4drawing[data4drawing.WB_NAME.isin(["Aksai Chin",
-                                                   "Arunachal Pradesh",
-                                                   "Abyei",
-                                                   "Demchok"])]
-    disp = gpd.GeoDataFrame(disp, geometry = disp.boundary)
-    sbor = data4drawing[data4drawing.TYPE.isin(["Special Border"])]
-    sborders = pd.concat([disp, sbor])
+    # disp = data4drawing[data4drawing.WB_NAME.isin(["Aksai Chin",
+    #                                                "Arunachal Pradesh",
+    #                                                "Abyei",
+    #                                                "Demchok"])]
+    # disp = gpd.GeoDataFrame(disp, geometry = disp.boundary)
+    # sbor = data4drawing[data4drawing.TYPE.isin(["Special Border"])]
+    # sborders = pd.concat([disp, sbor])
 
     # Creating tabs for displaying the results
     map_tab, table_tab = st.tabs(["Map", "Table"])
@@ -544,12 +544,12 @@ if submit_button:
             vmax         = ceiling,
             missing_kwds = missing_kwds
         )
-        sborders.plot(
-            ax           = ax,
-            linestyle    = "dotted",
-            linewidth    = linewidth, 
-            color        = "#CCCCCC"
-        )
+        # sborders.plot(
+        #     ax           = ax,
+        #     linestyle    = "dotted",
+        #     linewidth    = linewidth, 
+        #     color        = "#CCCCCC"
+        # )
         ax.axis("off")
 
         # Displaying map

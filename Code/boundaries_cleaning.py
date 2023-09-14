@@ -6,7 +6,7 @@ Description:    This module is focused in reading and preparing the World Bank O
                 dataset provided by the World Bank Cartography Unit for their use in the ROLI-MAP-app.
                 The CGAZ dataset can be found here: 
                 https://datacatalog.worldbank.org/search/dataset/0038272/World-Bank-Official-Boundaries
-This version:   July 31st, 2023
+This version:   September 14th, 2023
 """
 
 import os
@@ -28,25 +28,24 @@ raw_boundaries  = raw_boundaries[["TYPE", "WB_A3", "CONTINENT", "REGION_UN",
                                   "WB_REGION", "geometry"]]
 
 # Adjusting Dependent Territories labeled as "Country"
-raw_boundaries.loc[raw_boundaries["WB_A3"] == "JEY", "TYPE"]    = "Dependency"
-raw_boundaries.loc[raw_boundaries["WB_A3"] == "GGY", "TYPE"]    = "Dependency"
-raw_boundaries.loc[raw_boundaries["WB_A3"] == "IMY", "TYPE"]    = "Dependency"
-raw_boundaries.loc[raw_boundaries["WB_A3"] == "SXM", "TYPE"]    = "Dependency"
-raw_boundaries.loc[raw_boundaries["WB_A3"] == "CUW", "TYPE"]    = "Dependency"
-raw_boundaries.loc[raw_boundaries["WB_A3"] == "ABW", "TYPE"]    = "Dependency"
-raw_boundaries.loc[raw_boundaries["WB_A3"] == "BES", "TYPE"]    = "Dependency"
-raw_boundaries.loc[raw_boundaries["WB_A3"] == "SXM", "TYPE"]    = "Dependency"
-raw_boundaries.loc[raw_boundaries["WB_A3"] == "TKL", "TYPE"]    = "Dependency"
-raw_boundaries.loc[raw_boundaries["WB_A3"] == "HKG", "TYPE"]    = "Dependency"
-raw_boundaries.loc[raw_boundaries["WB_A3"] == "MAC", "TYPE"]    = "Dependency"
-raw_boundaries.loc[raw_boundaries["WB_A3"] == "GRL", "TYPE"]    = "Dependency"
+raw_boundaries.loc[raw_boundaries["WB_A3"] == "JEY", "TYPE"]    = "Dependency"  # Jersey (UK)
+raw_boundaries.loc[raw_boundaries["WB_A3"] == "GGY", "TYPE"]    = "Dependency"  # Guernsey (UK)
+raw_boundaries.loc[raw_boundaries["WB_A3"] == "IMY", "TYPE"]    = "Dependency"  # Isle of Man (UK)
+raw_boundaries.loc[raw_boundaries["WB_A3"] == "SXM", "TYPE"]    = "Dependency"  # Sint Maarten (Neth.)
+raw_boundaries.loc[raw_boundaries["WB_A3"] == "CUW", "TYPE"]    = "Dependency"  # Curaçao (Neth.)
+raw_boundaries.loc[raw_boundaries["WB_A3"] == "ABW", "TYPE"]    = "Dependency"  # Aruba (Neth.)	
+raw_boundaries.loc[raw_boundaries["WB_A3"] == "BES", "TYPE"]    = "Dependency"  # Saba (Neth.)
+raw_boundaries.loc[raw_boundaries["WB_A3"] == "TKL", "TYPE"]    = "Dependency"  # Tokelau (NZ)	
+raw_boundaries.loc[raw_boundaries["WB_A3"] == "HKG", "TYPE"]    = "Dependency"  # Hong Kong (SAR, China)
+raw_boundaries.loc[raw_boundaries["WB_A3"] == "MAC", "TYPE"]    = "Dependency"  # Macau (SAR, China)
+raw_boundaries.loc[raw_boundaries["WB_A3"] == "GRL", "TYPE"]    = "Dependency"  # Greenland (Den.)
 
-# Adjusting WB_AA3 codes of dependent territories that have the same country code as
+# Adjusting WB_A3 codes of dependent territories that have the same country code as
 # their respective sovereign country
 raw_boundaries.loc[raw_boundaries["NAME_EN"]  == "Clipperton Island", "WB_A3"]    = "FRA-OT"
 raw_boundaries.loc[raw_boundaries["WB_NAME"]  == "Navassa Island (US)", "WB_A3"]  = "USA-OT"
 
-# Converting all geometries claassified as "Country" to "Sovereign country"
+# Converting all geometries classified as "Country" to "Sovereign country"
 raw_boundaries.loc[raw_boundaries["TYPE"] == "Country", "TYPE"]    = "Sovereign country"
 
 # Modifying the WB_A3 code for Guantanamo Bay
@@ -56,10 +55,10 @@ raw_boundaries.loc[raw_boundaries["TYPE"]  == "Lease", "WB_A3"] = "XXX"
 raw_boundaries.loc[raw_boundaries["WB_A3"] == "MEX", "SUBREGION"] = "Central America"
 raw_boundaries.loc[raw_boundaries["WB_A3"] == "MLT", "REGION_WB"] = "Europe & Central Asia"
 
-# Adjusting Three-Letter Country Codes to match index data
-raw_boundaries.loc[raw_boundaries["WB_A3"] == "ZAR", "WB_A3"] = "COD"
-raw_boundaries.loc[raw_boundaries["WB_A3"] == "KSV", "WB_A3"] = "XKX"
-raw_boundaries.loc[raw_boundaries["WB_A3"] == "ROM", "WB_A3"] = "ROU"
+# Adjusting Three-Letter Country Codes to match index data (ISO CODES)
+raw_boundaries.loc[raw_boundaries["WB_A3"] == "ZAR", "WB_A3"] = "COD"   # D.R. Congo
+raw_boundaries.loc[raw_boundaries["WB_A3"] == "KSV", "WB_A3"] = "XKX"   # Kosovo
+raw_boundaries.loc[raw_boundaries["WB_A3"] == "ROM", "WB_A3"] = "ROU"   # Romania
 
 # FIXING THE TAIWAN-CHINA ISSUE
 # Splitting China's geometries
@@ -171,6 +170,7 @@ def group_dependencies(row):
         return row["WB_A3"]
 
 # THE FOLLOWING STEPS ARE NO LONGER NEEDED!!!
+# DEPENDENCIES ARE LEFT AS SEPARATE GEOMETRIES
 
 # Creating a grouped WB code
 # raw_boundaries["WB_grouped_A3"] = raw_boundaries.apply(group_dependencies, 
@@ -195,59 +195,62 @@ boundaries = pd.concat([raw_boundaries, disputed_territories])
 boundaries = boundaries.drop(["WB_grouped_A3", "CONTINENT", "WB_REGION", "NAME_EN"], 
                              axis = 1)
 
-## DEFINING SPECIAL BORDERS
-## Sudan - South Sudan
-sudan       = boundaries[boundaries["WB_A3"] == "SDN"].iloc[0].geometry
-south_sudan = boundaries[boundaries["WB_A3"] == "SSD"].iloc[0].geometry
-sudan.touches(south_sudan)
-sudan_border = sudan.intersection(south_sudan)
+# THE FOLLOWING STEPS ARE NO LONGER NEEDED!!!
+# NO MORE SPECIAL BORDERS
 
-## Ethiopia - Somalia
-ethiopia = boundaries[boundaries["WB_A3"] == "ETH"].iloc[0].geometry
-somalia  = boundaries[boundaries["WB_A3"] == "SOM"].iloc[0].geometry 
-ethiopia.touches(somalia)
-etsom_border = ethiopia.intersection(somalia)
+# ## DEFINING SPECIAL BORDERS
+# ## Sudan - South Sudan
+# sudan       = boundaries[boundaries["WB_A3"] == "SDN"].iloc[0].geometry
+# south_sudan = boundaries[boundaries["WB_A3"] == "SSD"].iloc[0].geometry
+# sudan.touches(south_sudan)
+# sudan_border = sudan.intersection(south_sudan)
 
-## Kosovo - Serbia
-kosovo = boundaries[boundaries["WB_A3"] == "XKX"].iloc[0].geometry
-serbia = boundaries[boundaries["WB_A3"] == "SRB"].iloc[0].geometry
-kosovo.touches(serbia)
-koser_border = kosovo.intersection(serbia)
+# ## Ethiopia - Somalia
+# ethiopia = boundaries[boundaries["WB_A3"] == "ETH"].iloc[0].geometry
+# somalia  = boundaries[boundaries["WB_A3"] == "SOM"].iloc[0].geometry 
+# ethiopia.touches(somalia)
+# etsom_border = ethiopia.intersection(somalia)
 
-## South - North Korea
-skorea = boundaries[boundaries["WB_A3"] == "KOR"].iloc[0].geometry
-nkorea = boundaries[boundaries["WB_A3"] == "PRK"].iloc[0].geometry
-skorea.touches(nkorea)
-korea_border = skorea.intersection(nkorea)
+# ## Kosovo - Serbia
+# kosovo = boundaries[boundaries["WB_A3"] == "XKX"].iloc[0].geometry
+# serbia = boundaries[boundaries["WB_A3"] == "SRB"].iloc[0].geometry
+# kosovo.touches(serbia)
+# koser_border = kosovo.intersection(serbia)
 
-## Creating geopandas dataframe with special borders
-bnames = ["Sudan - South Sudan",
-          "Ethiopia - Somalia",
-          "Kosovo - Serbia",
-          "Korea"]
-types = "Special Border"
-geometries = [sudan_border, 
-              etsom_border,
-              koser_border,
-              korea_border]
-dictionary = {"TYPE": "Special Border",
-              "WB_NAME": bnames, 
-              "geometry": geometries}
-sborders   = gpd.GeoDataFrame(dictionary, geometry = geometries)
+# ## South - North Korea
+# skorea = boundaries[boundaries["WB_A3"] == "KOR"].iloc[0].geometry
+# nkorea = boundaries[boundaries["WB_A3"] == "PRK"].iloc[0].geometry
+# skorea.touches(nkorea)
+# korea_border = skorea.intersection(nkorea)
 
-# Creating extended bounndaries
-boundaries_extended = pd.concat([boundaries, sborders])
+# ## Creating geopandas dataframe with special borders
+# bnames = ["Sudan - South Sudan",
+#           "Ethiopia - Somalia",
+#           "Kosovo - Serbia",
+#           "Korea"]
+# types = "Special Border"
+# geometries = [sudan_border, 
+#               etsom_border,
+#               koser_border,
+#               korea_border]
+# dictionary = {"TYPE": "Special Border",
+#               "WB_NAME": bnames, 
+#               "geometry": geometries}
+# sborders   = gpd.GeoDataFrame(dictionary, geometry = geometries)
+
+# # Creating extended bounndaries
+# boundaries_extended = pd.concat([boundaries, sborders])
 
 # Save the updated GeoJSON to a file
 path4saving = os.path.join(os.path.dirname(__file__), 
                            '..',
                            "Data")
-# boundaries.to_file(path4saving + "/data4app.geojson", 
-#                    driver="GeoJSON")
-boundaries_extended.to_file(path4saving + "/data4app.geojson", 
-                            driver="GeoJSON")
+boundaries.to_file(path4saving + "/data4app.geojson", 
+                   driver="GeoJSON")
+# boundaries_extended.to_file(path4saving + "/data4app.geojson", 
+#                             driver="GeoJSON")
 
 # Converting data to a Pandas DataFrame and saving it as CSV
 (pd
- .DataFrame(boundaries_extended.drop(columns="geometry"))
+ .DataFrame(boundaries.drop(columns="geometry"))
  .to_csv(path4saving + "/data4app.csv"))

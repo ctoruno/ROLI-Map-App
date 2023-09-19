@@ -325,7 +325,7 @@ with data_container:
                 # Read the Excel file into a Pandas DataFrame
                 master_data["roli"] = (pd
                                        .read_excel(uploaded_file)
-                                       .rename(columns = {"COUNTRY" : "custom_name",
+                                       .rename(columns = {"COUNTRY" : "country",
                                                           "CODE"    : "code",
                                                           "YEAR"    : "year"}))
                 master_data["roli"]["year"] = master_data["roli"]["year"].astype(str)
@@ -339,7 +339,7 @@ with data_container:
                 cnames = master_data["roli"].columns
                 available_variables = [col 
                                        for col in cnames 
-                                       if col not in ["custom_name", "year", "code"]]
+                                       if col not in ["country", "year", "code"]]
                 available_years = sorted(master_data["roli"]["year"].unique().tolist(),
                                          reverse = True)
                 

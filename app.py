@@ -1,10 +1,12 @@
 import io
 import pandas as pd
+import numpy as np
 import geopandas as gpd
 import matplotlib.pyplot as plt
 import matplotlib.colors as colors
 import streamlit as st
 from shapely.geometry import box
+from PIL import Image
 
 st.set_page_config(
     page_title = "Map Generator",
@@ -131,45 +133,19 @@ st.title("ROLI Map Generator")
 st.markdown(
     """
     <p class='jtext'>
-    This is an interactive app designed to display and generate <a href="https://datavizcatalogue.com/methods/choropleth.html">
-    <b style="color:#003249">Choropleth Maps</b></a> using the WJP's <i>Rule of Law Index</i> scores as data inputs. 
-    This app is still under deevelopment. Therefore, customization is limited at the moment. However, the data
-    presented in this app is up-to-date according to the latest datasets published by the World Justice Project in its website.
+    This is an interactive app designed to display and generate 
+    <a href="https://datavizcatalogue.com/methods/choropleth.html">
+    <b style="color:#003249">Choropleth Maps</b></a> using the WJP's <i>Rule of Law Index</i> 
+    scores as data inputs. This app is still under deevelopment. Therefore, customization is 
+    limited at the moment. However, the data presented in this app is up-to-date according to 
+    the latest datasets published by the World Justice Project in its website.
     </p>
-    
-    <p class='jtext'>
-    In order to generate a map, follow the next steps:
-    </p>
-
-    <ol>
-        <li class='jtext'>
-            Define the geographical extension of your map. It can be either a global map or limited to a specific region or geographical
-            coordinates.
-        </li>
-        <li class='jtext'>
-            Select the data that you would like the map to display from the available options or load your own set of data.
-        </li>
-        <li class='jtext'>
-            You can further customize your map by adding color breaks or changing the color key. You don't need to set a color for every country, 
-            you just need to define the major color breaks that your Choropleth Map should have. The app will then, do the rest. 
-        </li>
-        <li class='jtext'>
-            Once you are ready, click on the <b style="color:#003249">"Display"</b> button to visualize your map.
-        </li>
-        <li class='jtext'>
-            If you like the map and you would like to save it as a SVG file, click on the 
-            <b style="color:#003249">"Save"</b> button.
-        </li>
-    </ol>
 
     <p class='jtext'>
     If you have questions, suggestions or you want to report a bug, you can send an email to 
     <b style="color:#003249">carlos.toruno@gmail.com</b>. The Python code for this app
-    is publicly available on <a href="https://github.com/ctoruno/ROLI-Map-App" target="_blank" style="color:#003249">
-    this GitHub repository</a>.
-    </p>
-    <p class='jtext'>
-    Galingan!
+    is publicly available on <a href="https://github.com/ctoruno/ROLI-Map-App" target="_blank" 
+    style="color:#003249"> this GitHub repository</a>.
     </p>
     """,
     unsafe_allow_html = True
@@ -182,34 +158,37 @@ extension_container = st.container()
 with extension_container:
 
     # Extension Container Title
-    st.markdown("<h4>Step 1: Define the geographical extension of your map</h4>",
+    st.markdown("<h4>Step 1: Define the geographical extension of your map.</h4>",
                     unsafe_allow_html = True)
+    st.markdown(
+    """
+    <p class='jtext'>
+    The extension refers to the geographical coverage of your desired map. 
+    It can be a world or regional map. For regional maps, you can select from
+    a predefined list of options or customized the extension using geographical
+    coordinates in order to define a bounding box.
+    </p>
+    """,
+    unsafe_allow_html = True)
         
-    # Extension input
-    extension_help = '''
-    The extension refers to the geographical coverage of your desired map. It can be a world or regional map.
-    A world map is straightforward, but if you want to draw a regional map, you will need to fulfill additional 
-    options about the geographical extension of your map.
-    '''
-    regions_help = '''
-    The World Bank classification divides countries and territories in seven regions,
-    an it is driven by geography and development criteria. This is the classification 
-    used by WJP to present their results. The United Nations classification divides
-    countries and territories in 5 continents and 22 subregions.
-    '''
-    dinput_help = '''
-    Would you like to use the index scores data or would you like to input your own custom data?
-    '''
-    data_format_help = '''
-    For uploading a file, make sure the workbook has a single sheet and it has two columns at the 
-    beginning: "WB_A3" and "year". Each row should represnt the achieved value for a country in a certain 
-    year.
-    '''
+    # Defining helper texts used by the app
+    regions_help = """ 
+    The app provides two different regional classifications: (i) The regions used 
+    by the World Justice Project in their Insights Reports, and (ii) the regions 
+    and subregions used by the United Nations in their Sustainable Development 
+    Goals Reports.
+    """
 
+    cbar_help = """
+    By default, the app generates a map with the color scale bar on the right side
+    of the map. You can turn off this setting to have a better control of the output
+    dimensions.
+    """
+
+    # Extension input
     extension = st.radio("Select an extension for your map:", 
                         ["World", "Regional", "Custom"],
-                        horizontal = True,
-                        help       = extension_help)
+                        horizontal = True)
 
     # Available Regions
     UN_regions    = ['Asia', 'Americas', 'Africa', 'Europe', 'Oceania']
@@ -251,11 +230,14 @@ with extension_container:
                                      help = "You can select more than one region.")
             
             # Dropdown menu for subregions
-            listed_subregions = master_data["boundaries"][master_data["boundaries"]["REGION_UN"].isin(regions)]["SUBREGION"].unique().tolist()
+            listed_subregions = (master_data["boundaries"][master_data["boundaries"]["REGION_UN"]
+                                                           .isin(regions)]["SUBREGION"]
+                                                           .unique()
+                                                           .tolist())
             selected_regions  = st.multiselect("Select the regions you would like to work with:", 
                                                listed_subregions,
                                                default = listed_subregions,
-                                               help = "You can select more than one subregion.")
+                                               help    = "You can select more than one subregion.")
 
     # Conditional display for customized extension
     elif extension == "Custom":
@@ -272,6 +254,10 @@ with extension_container:
                                       max_value = 90,
                                       value     = 40,
                                       help      = "Insert coordinates in degrees")
+            
+            if min_lat >= max_lat:
+                st.error("Minimum latitude should be lower than the maximum latitude", 
+                         icon = "🚨")
         
         with clongitudes:
             min_lon = st.number_input(label     = "Minimum Longitude",
@@ -284,7 +270,11 @@ with extension_container:
                                       max_value = 180,
                                       value     = 100,
                                       help      = "Insert coordinates in degrees")
-
+            
+            if min_lon >= max_lon:
+                st.error("Minimum longitude should be lower than the maximum longitude", 
+                         icon = "🚨")
+            
     else:
         selected_regions = None
         regfilter        = None
@@ -296,28 +286,48 @@ data_container = st.container()
 with data_container:
 
     # Data Container Title
-    st.markdown("<h4>Step 2: Select the scores to be displayed in your map</h4>",
-                    unsafe_allow_html = True)
+    st.markdown("<h4>Step 2: Select the scores that you would like to display in your map</h4>",
+                unsafe_allow_html = True)
+    st.markdown(
+    """
+    <p class='jtext'>
+    If you would like to display scores from the Rule of Law Index, you can select
+    a variable from a specific year in the dropdown lists below. Additionally,
+    the app allows you to upload your own custom data to use in the map.
+    </p>
+    """,
+    unsafe_allow_html = True)
     
     # Choose the data input
     data_input = st.radio("Select a data input for your map:", 
-                          ["Index Variables", "Custom Data"],
-                          horizontal = True,
-                          help       = dinput_help)
+                          ["Rule of Law Index", "Custom Data"],
+                          horizontal = True)
     
     if data_input == "Custom Data":
 
+        delta_bin = False
+
+        # Custom Data Example
+        cdata_example = Image.open("Media/custom_data_example.png")
+        with st.expander(
+            label = "Please click here to see an example of how to structure the custom data."
+        ) :
+            st.image(cdata_example)
+
         # File uploader
         uploaded_file = st.file_uploader("Upload Excel file", 
-                                         type = ["xlsx"],
-                                         help = data_format_help)
+                                         type = ["xlsx"])
         
         # Process uploaded data
         if uploaded_file is not None:
 
             try:
                 # Read the Excel file into a Pandas DataFrame
-                master_data["roli"] = pd.read_excel(uploaded_file).rename(columns = {"country_code": "code"})
+                master_data["roli"] = (pd
+                                       .read_excel(uploaded_file)
+                                       .rename(columns = {"COUNTRY" : "custom_name",
+                                                          "CODE"    : "code",
+                                                          "YEAR"    : "year"}))
                 master_data["roli"]["year"] = master_data["roli"]["year"].astype(str)
 
                 # Displaying data
@@ -327,7 +337,9 @@ with data_container:
 
                 # Searchbox to define a target variable
                 cnames = master_data["roli"].columns
-                available_variables = [col for col in cnames if col not in ["year", "code"]]
+                available_variables = [col 
+                                       for col in cnames 
+                                       if col not in ["custom_name", "year", "code"]]
                 available_years = sorted(master_data["roli"]["year"].unique().tolist(),
                                          reverse = True)
                 
@@ -340,7 +352,7 @@ with data_container:
                 floor_input, ceiling_input = st.columns(2)
 
                 with floor_input:
-                    floor = st.number_input("What's the minimum expected value?")
+                    floor   = st.number_input("What's the minimum expected value?")
                 
                 with ceiling_input:
                     ceiling = st.number_input("What's the maximum expected value?")
@@ -366,7 +378,62 @@ with data_container:
         floor   = 0
         ceiling = 1
 
-st.write()
+        # Checkbox for yearly changes
+        delta_bin = st.checkbox("Would you like to display yearly percentage changes?",
+                                help = "This will transform the variables into categorical groups.")
+
+    if delta_bin == True:
+        
+        # Adjusting floor/ceiling
+        floor   = -1
+        ceiling = +1
+        
+        # Options for categorical values
+        end_year  = target_year
+
+        # Creating columns for additional options
+        cc1, cc2 = st.columns(2)
+
+        # Base year selection
+        with cc1:
+            perc_method = st.selectbox("What's the base change?",
+                                       ["1-year change", "5-years change"])
+        
+        # Value breaks to form categories
+        with cc2:
+            vbreaks = st.number_input("Define your categories", 
+                                      min_value = 2, 
+                                      max_value = 4, 
+                                      value     = 2,
+                                      step      = 2)
+
+        # Empty list to store value breaks
+        value_breaks = []
+
+        # Defining default value breaks
+        if vbreaks == 2:
+            default_breaks = [0.0]
+        if vbreaks == 4:
+            default_breaks = [-0.05 , 0.0 , 0.05]
+
+        # Creating dynamic columns    
+        cls    = st.columns(vbreaks-1)
+        for i, x in enumerate(cls):
+            input_edge = x.number_input(f"Value Break #{i+1}:", 
+                                        min_value = -1.0,
+                                        max_value = 1.0,
+                                        value     = default_breaks[i],
+                                        step      = 0.01,
+                                        key       = f"vbreak{i}")
+            value_breaks.append(input_edge)
+        
+        bin_edges  = [floor] + value_breaks + [ceiling]
+        bin_labels = []
+        for x,y in enumerate(bin_edges):
+            print(x)
+            if x < len(bin_edges) - 1:
+                b = "From " + str(y) + " to " + str(bin_edges[x+1])
+                bin_labels.append(b)
 
 st.markdown("""---""")
 
@@ -374,24 +441,43 @@ st.markdown("""---""")
 customization = st.container()
 with customization:
 
-    # Data Cistomization Container Title
+    # Map Customization Container Title
     st.markdown("<h4>Step 3: Customize your map</h4>",
                     unsafe_allow_html = True)
+    st.markdown(
+    """
+    <p class='jtext'>
+    If you would like to display scores from the Rule of Law Index, you can select
+    a variable from a specific year in the dropdown lists below. Additionally,
+    the app allows you to upload your own custom data to use in the map.
+    </p>
+    """,
+    unsafe_allow_html = True)
 
     # Defining default colors
-    default_colors = [["#1A7154"],
-                      ["#A41010", "#1E3231"],
-                      ["#A41010", "#F0C412", "#1E3231"],
-                      ["#A41010", "#F0C412", "#1A7154", "#1E3231"],
-                      ["#A41010", "#CA6A11", "#F0C412", "#1A7154", "#1E3231"],
-                      ["#A41010", "#CA6A11", "#F0C412", "#859B33", "#1A7154", "#1E3231"],
-                      ["#A41010", "#CA6A11", "#DD9712", "#F0C412", "#859B33", "#1A7154", "#1E3231"]]
-    
+    if delta_bin == False:
+        default_colors = [["#1A7154"],
+                          ["#A41010", "#1E3231"],
+                          ["#A41010", "#F0C412", "#1E3231"],
+                          ["#A41010", "#F0C412", "#1A7154", "#1E3231"],
+                          ["#A41010", "#CA6A11", "#F0C412", "#1A7154", "#1E3231"],
+                          ["#A41010", "#CA6A11", "#F0C412", "#859B33", "#1A7154", "#1E3231"],
+                          ["#A41010", "#CA6A11", "#DD9712", "#F0C412", "#859B33", "#1A7154", "#1E3231"]]
+    else:
+        default_colors = [["#FFF6F6"],
+                          ["#BC3B24", "#08605F"],
+                          ["#BC3B24", "#FFF6F6", "#08605F"],
+                          ["#BC3B24", "#FBD1C6", "#8ECCB2", "#08605F"]]
+
+    # Empty list to store color codes
     color_breaks = []
 
     # Dropdown menu for number of color breaks
-    ncolors = st.number_input("Select number of color breaks", 2, 7, 5,
-                              help = "You can select to a maximum of 7 color breaks.")
+    if delta_bin == False:
+        ncolors = st.number_input("Select number of color breaks", 2, 7, 5,
+                                help = "You can select to a maximum of 7 color breaks.")
+    else:
+        ncolors = vbreaks
     
     # Dynamic Color Pickers
     st.markdown("<b>Select or write down the color codes for your legend</b>:",
@@ -404,6 +490,11 @@ with customization:
         x.write(str(input_value))
         color_breaks.append(input_value)
 
+    # Should we keep/remove the color scale bar from the map?
+    color_bar = st.toggle("Display color bar from output", 
+                          value = True,
+                          help  = cbar_help)
+    
     st.markdown("""<br>""",
                 unsafe_allow_html = True)
 
@@ -438,6 +529,35 @@ with saving:
     #Saving Options Title
     st.markdown("<h4>Step 4: Draw your map</h4>",
                 unsafe_allow_html = True)
+    st.markdown(
+    """
+    <p class='jtext'>
+    You can now click on the <b>Display button</b> to visualize the outcomes 
+    with the current settings. Once you do it, you will observe three tabs.
+    
+    <ul>
+    <li>
+    In the <i>first tab</i>, you can visualize the map. If you need to zoom into 
+    the image, you can enlarge the outcome by hoovering near the top right corner
+    of the image and clicking the <b>enlarge button</b>. If you like the visual, 
+    you can click on the <b>Save map button</b> to save the image as an SVG file.
+    </li>
+
+    <li>
+    In the <i>second tab</i>, the app produces a table with the respective scores 
+    and color codes by country. You also have the option to download this table
+    as an excel file.
+    </li>
+
+    <li>
+    In the <i>third tab</i>, you will find a bar chart with the selected
+    scores by country-year. You have the option to download this chart as a SVG
+    file in your local machine.
+    </li>
+    </ul>
+    </p>
+    """,
+    unsafe_allow_html = True)
 
     submit_button = st.button(label = "Display")
 
@@ -445,7 +565,38 @@ with saving:
 if submit_button:
 
     # Filtering ROLI Data
-    filtered_roli = master_data["roli"][master_data["roli"]['year'] == target_year]
+    if delta_bin == False:
+        filtered_roli = master_data["roli"][master_data["roli"]['year'] == target_year]
+    
+    else:
+
+        # If we are plotting categorical data, we need to transform the data
+        filtered_roli = master_data["roli"]
+
+        # Filtering for 5-years change
+        if perc_method == "5-years change":
+            base_year = int(target_year) - 5
+            pattern   = str(target_year) + "|" + str(base_year)
+            filtered_roli = (filtered_roli[filtered_roli["year"]
+                                           .str.contains(pattern)])
+        
+        # Calculating percentage change
+        filtered_roli = (filtered_roli
+                         .sort_values(["country", "year"])
+                         .set_index(["country", "code", "year"])
+                         .select_dtypes(np.number)
+                         .groupby("country")
+                         .pct_change()
+                         .reset_index()
+                         )
+        filtered_roli = filtered_roli[filtered_roli["year"] == target_year]
+
+        # Transforming target variable into a categorical variable
+        filtered_roli["score"] = filtered_roli[target_variable]
+        filtered_roli[target_variable] = (pd
+                                          .cut(filtered_roli[target_variable],
+                                               bins   = bin_edges,
+                                               labels = bin_labels)) 
 
     # Merge the two DataFrames on a common column
     data4map = master_data["boundaries"].merge(filtered_roli,
@@ -489,42 +640,19 @@ if submit_button:
     # Create a custom colormap
     colors_list = color_breaks
     cmap_name   = "default_cmap"
-    cmap        = colors.LinearSegmentedColormap.from_list(cmap_name, colors_list)
 
-    # Drawing plotly
-    # data4drawing.set_index("WB_NAME")
-    # fig = px.choropleth(
-    #     data_frame             = data4drawing,
-    #     geojson                = data4drawing.geometry,
-    #     locations              = data4drawing.index,
-    #     color                  = target_variable,
-    #     color_continuous_scale = color_breaks,
-    #     range_color            = (0, 1),
-    #     labels                 = {"country": target_variable}
-    # )
-
-    # fig.update_geos(
-    #     projection_type=<projection_type>,
-    #     showcoastlines=True,  # Display coastlines on the map
-    #     coastlinecolor="white",  # Set the color of the coastlines
-    #     showland=True,  # Display landmasses on the map
-    #     landcolor="lightgray",  # Set the color of the landmasses
-    # )
-
-    # Display the plotly figure using Streamlit
-    # st.plotly_chart(fig)
-
-    # Creating a special borders geo-data-frame
-    # disp = data4drawing[data4drawing.WB_NAME.isin(["Aksai Chin",
-    #                                                "Arunachal Pradesh",
-    #                                                "Abyei",
-    #                                                "Demchok"])]
-    # disp = gpd.GeoDataFrame(disp, geometry = disp.boundary)
-    # sbor = data4drawing[data4drawing.TYPE.isin(["Special Border"])]
-    # sborders = pd.concat([disp, sbor])
+    if delta_bin == False:
+        cmap = colors.LinearSegmentedColormap.from_list(cmap_name, colors_list)
+    else:
+        value2color     = dict(zip(bin_labels, color_breaks))
+        colors_list     = [value2color[value] for value in bin_labels]
+        cmap = colors.ListedColormap(colors_list)
 
     # Creating tabs for displaying the results
-    map_tab, table_tab = st.tabs(["Map", "Table"])
+    if delta_bin == False:
+        map_tab, table_tab, graph_tab = st.tabs(["Map", "Table", "Graph"])
+    else:    
+        map_tab, table_tab = st.tabs(["Map", "Table"])
 
     with map_tab:
         
@@ -532,24 +660,28 @@ if submit_button:
         fig, ax = plt.subplots(1, 
                                figsize = (width_in, height_in),
                                dpi     = dpi)
-        
-        data4drawing.plot(
-            column       = target_variable, 
-            cmap         = cmap,
-            linewidth    = linewidth,
-            ax           = ax,
-            edgecolor    = "#EBEBEB",
-            legend       = True,
-            vmin         = floor,
-            vmax         = ceiling,
-            missing_kwds = missing_kwds
-        )
-        # sborders.plot(
-        #     ax           = ax,
-        #     linestyle    = "dotted",
-        #     linewidth    = linewidth, 
-        #     color        = "#CCCCCC"
-        # )
+        if delta_bin == False:
+            data4drawing.plot(
+                column       = target_variable, 
+                cmap         = cmap,
+                linewidth    = linewidth,
+                ax           = ax,
+                edgecolor    = "#EBEBEB",
+                legend       = color_bar,
+                vmin         = floor,
+                vmax         = ceiling,
+                missing_kwds = missing_kwds
+            )
+        else:
+            data4drawing.plot(
+                column       = target_variable, 
+                cmap         = cmap,
+                linewidth    = linewidth,
+                ax           = ax,
+                edgecolor    = "#EBEBEB",
+                legend       = color_bar,
+                missing_kwds = missing_kwds
+            )
         ax.axis("off")
 
         # Displaying map
@@ -561,7 +693,7 @@ if submit_button:
                     format = "svg")
         
         # Download button
-        st.download_button(label     = "Save map", 
+        st.download_button(label     = "Save Map", 
                            data      = svg_file.getvalue(), 
                            file_name = "choropleth_map.svg",
                            key       = "download-map")  
@@ -576,21 +708,39 @@ if submit_button:
         
         # Subsetting data frame to export
         outcome_table = outcome_table[outcome_table["year"] == target_year]
-        outcome_table = outcome_table[["WB_A3", target_variable]]
+        if delta_bin == False:
+            outcome_table = (outcome_table[["country", "WB_A3", target_variable]]
+                            .sort_values(by = "country", ascending = True))
+        else:
+            outcome_table = (outcome_table[["country", "WB_A3", target_variable, "score"]]
+                            .sort_values(by = "country", ascending = True))
 
-        # Adding minimmum and maximum hypothetical values
-        outcome_table = outcome_table.append({'WB_A3': 'Floor-Ceiling', target_variable: floor}, 
-                                             ignore_index = True)
-        outcome_table = outcome_table.append({'WB_A3': 'Floor-Ceiling', target_variable: ceiling}, 
-                                             ignore_index = True)
+        # Cleaning table to display
+        if delta_bin == False:
 
-        # Add a new column to the GeoDataFrame for color codes
-        outcome_table["color_code"] = (outcome_table
-                                       .apply(lambda row: colors.rgb2hex(plt.cm.get_cmap(cmap)(row[target_variable])), 
-                                              axis = 1))
+            # Adding minimmum and maximum hypothetical values
+            minmax = pd.DataFrame({"country"      : ['Floor-Ceiling', 'Floor-Ceiling'],
+                                   "WB_A3"        : ['Floor-Ceiling', 'Floor-Ceiling'], 
+                                   target_variable: [floor, ceiling]})
+
+            # Add a new column to the GeoDataFrame for color codes
+            outcome_table["color_code"] = (outcome_table
+                                            .apply(
+                                                lambda row: (colors
+                                                                .rgb2hex(plt
+                                                                        .cm
+                                                                        .get_cmap(cmap)(row[target_variable]))
+                                                                ), 
+                                                    axis = 1))
+            
+            # Excluding the hypothetical values and sorting values
+            outcome_table = (outcome_table
+                             .query("WB_A3 != 'Floor-Ceiling'"))
         
-        # Excluding the hypothetical values
-        outcome_table = outcome_table.query("WB_A3 != 'Floor-Ceiling'")
+        else:
+            outcome_table["color_code"] = (outcome_table[target_variable]
+                                           .map(value2color))
+
         
         # Displaying Table
         st.write(outcome_table)
@@ -601,7 +751,7 @@ if submit_button:
             outcome_table.to_excel(writer,
                                    sheet_name = "Data-Table")
             
-            writer.save()
+            writer.close()
 
         # Download button
         st.download_button(
@@ -610,7 +760,36 @@ if submit_button:
             file_name = "color_map.xlsx",
             mime      = "application/vnd.ms-excel"
         )
-
     
+    if delta_bin == False:
+        with graph_tab:
+            
+            # Defining height for plot
+            h = len(outcome_table)/5
+            
+            # Creating plot
+            bars = plt.figure(figsize = (10, h))
+            plt.barh(outcome_table["country"],
+                     outcome_table[target_variable], 
+                     color = outcome_table["color_code"])
+            plt.gca().invert_yaxis()
+            plt.margins(y = 0)
+
+            # Add labels and a title
+            plt.title("Scores by Country")
+
+            # Displaying map
+            st.pyplot(bars)
+
+            # Export image as SVG file
+            svg_file = io.StringIO()
+            plt.savefig(svg_file, 
+                        format = "svg")
+            
+            # Download button
+            st.download_button(label     = "Save Chart", 
+                            data      = svg_file.getvalue(), 
+                            file_name = "bar_chart.svg",
+                            key       = "download-chart")  
 
     

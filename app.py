@@ -403,7 +403,7 @@ with data_container:
         with cc2:
             vbreaks = st.number_input("Define your categories", 
                                       min_value = 2, 
-                                      max_value = 4, 
+                                      max_value = 6, 
                                       value     = 2,
                                       step      = 2)
 
@@ -414,7 +414,9 @@ with data_container:
         if vbreaks == 2:
             default_breaks = [0.0]
         if vbreaks == 4:
-            default_breaks = [-0.05 , 0.0 , 0.05]
+            default_breaks = [-0.02, 0.0, 0.02]
+        if vbreaks == 6:
+            default_breaks = [-0.04, -0.02, 0.0, 0.02, 0.04]
 
         # Creating dynamic columns    
         cls    = st.columns(vbreaks-1)
@@ -464,10 +466,9 @@ with customization:
                           ["#A41010", "#CA6A11", "#F0C412", "#859B33", "#1A7154", "#1E3231"],
                           ["#A41010", "#CA6A11", "#DD9712", "#F0C412", "#859B33", "#1A7154", "#1E3231"]]
     else:
-        default_colors = [["#FFF6F6"],
-                          ["#BC3B24", "#08605F"],
-                          ["#BC3B24", "#FFF6F6", "#08605F"],
-                          ["#BC3B24", "#FBD1C6", "#8ECCB2", "#08605F"]]
+        default_colors = [["#88ACCE", "#D08176"],
+                          ["#B44143", "#D08176", "#88ACCE", "#247BA0"],
+                          ["#B44143", "#D08176", "#E7C1B1", "#C5D6E7", "#88ACCE", "#247BA0"]]
 
     # Empty list to store color codes
     color_breaks = []
@@ -480,12 +481,17 @@ with customization:
         ncolors = vbreaks
     
     # Dynamic Color Pickers
+    if delta_bin == False:
+        cindex = int(ncolors-1)
+    else:
+        cindex = int((ncolors/2)-1)
+    
     st.markdown("<b>Select or write down the color codes for your legend</b>:",
                 unsafe_allow_html = True)
     cols    = st.columns(ncolors)
     for i, x in enumerate(cols):
         input_value = x.color_picker(f"Break #{i+1}:", 
-                                        default_colors[ncolors-1][i],
+                                        default_colors[cindex][i],
                                         key = f"break{i}")
         x.write(str(input_value))
         color_breaks.append(input_value)

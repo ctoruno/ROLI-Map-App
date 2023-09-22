@@ -136,9 +136,9 @@ st.markdown(
     This is an interactive app designed to display and generate 
     <a href="https://datavizcatalogue.com/methods/choropleth.html">
     <b style="color:#003249">Choropleth Maps</b></a> using the WJP's <i>Rule of Law Index</i> 
-    scores as data inputs. This app is still under deevelopment. Therefore, customization is 
-    limited at the moment. However, the data presented in this app is up-to-date according to 
-    the latest datasets published by the World Justice Project in its website.
+    scores as data inputs. This app is still under development. However, the data presented in 
+    this app is up-to-date according to the latest datasets published by the World Justice 
+    Project in its website.
     </p>
 
     <p class='jtext'>
@@ -165,8 +165,8 @@ with extension_container:
     <p class='jtext'>
     The extension refers to the geographical coverage of your desired map. 
     It can be a world or regional map. For regional maps, you can select from
-    a predefined list of options or customized the extension using geographical
-    coordinates in order to define a bounding box.
+    a predefined list of options or you can customize the extension using 
+    geographical coordinates in order to define a bounding box for your map.
     </p>
     """,
     unsafe_allow_html = True)
@@ -449,9 +449,8 @@ with customization:
     st.markdown(
     """
     <p class='jtext'>
-    If you would like to display scores from the Rule of Law Index, you can select
-    a variable from a specific year in the dropdown lists below. Additionally,
-    the app allows you to upload your own custom data to use in the map.
+    You can customize your map by customizing your color gradient, removing the color bar,
+    adjusting the output dimensions, the DPI and the border widths.
     </p>
     """,
     unsafe_allow_html = True)
@@ -476,7 +475,7 @@ with customization:
     # Dropdown menu for number of color breaks
     if delta_bin == False:
         ncolors = st.number_input("Select number of color breaks", 2, 7, 5,
-                                help = "You can select to a maximum of 7 color breaks.")
+                                help = "You can select to a maximum of 7 color breaks for your gradient.")
     else:
         ncolors = vbreaks
     

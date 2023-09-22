@@ -543,7 +543,7 @@ with saving:
     <ul>
     <li>
     In the <i>first tab</i>, you can visualize the map. If you need to zoom into 
-    the image, you can enlarge the outcome by hoovering near the top right corner
+    the image, you can enlarge the outcome by hovering near the top right corner
     of the image and clicking the <b>enlarge button</b>. If you like the visual, 
     you can click on the <b>Save map button</b> to save the image as an SVG file.
     </li>

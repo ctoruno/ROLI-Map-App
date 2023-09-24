@@ -131,3 +131,4 @@ Data/WB_geodata/WB_Admin0_boundary_lines.geojson
 Data/WB_geodata/WB_Admin0_disputed_areas_boundary_lines.geojson
 Data/WB_geodata/WB_Coastlines.geojson
 Data/WB_geodata/WB_Land.geojson
+.streamlit/secrets.toml

@@ -37,13 +37,16 @@ def check_password():
         # Password correct.
         return True
 
+# Checking for password
 if check_password():
 
+    # Settings
     st.set_page_config(
         page_title = "Map Generator",
         page_icon  = ":earth_americas:"
     )
 
+    # Reading CSS
     with open("styles.css") as stl:
         st.markdown(f"<style>{stl.read()}</style>", 
                     unsafe_allow_html=True)

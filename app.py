@@ -448,9 +448,9 @@ if check_password():
             if vbreaks == 2:
                 default_breaks = [0.0]
             if vbreaks == 4:
-                default_breaks = [-0.02, 0.0, 0.02]
+                default_breaks = [-0.0205, 0.0, 0.0205]
             if vbreaks == 6:
-                default_breaks = [-0.04, -0.02, 0.0, 0.02, 0.04]
+                default_breaks = [-0.0405, -0.0205, 0.0, 0.0205, 0.0405]
 
             # Creating dynamic columns    
             cls    = st.columns(vbreaks-1)
@@ -459,7 +459,7 @@ if check_password():
                                             min_value = -1.0,
                                             max_value = 1.0,
                                             value     = default_breaks[i],
-                                            step      = 0.01,
+                                            step      = 0.0001,
                                             key       = f"vbreak{i}")
                 value_breaks.append(input_edge)
             

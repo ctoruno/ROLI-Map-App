@@ -448,20 +448,20 @@ if check_password():
             if vbreaks == 2:
                 default_breaks = [0.0]
             if vbreaks == 4:
-                default_breaks = [-0.0205, 0.0, 0.0205]
+                default_breaks = [-2.05, 0.0, 2.05]
             if vbreaks == 6:
-                default_breaks = [-0.0405, -0.0205, 0.0, 0.0205, 0.0405]
+                default_breaks = [-4.05, -2.05, 0.0, 2.05, 4.05]
 
             # Creating dynamic columns    
             cls    = st.columns(vbreaks-1)
             for i, x in enumerate(cls):
                 input_edge = x.number_input(f"Value Break #{i+1}:", 
-                                            min_value = -1.0,
-                                            max_value = 1.0,
+                                            min_value = -100.0,
+                                            max_value = 100.0,
                                             value     = default_breaks[i],
-                                            step      = 0.0001,
+                                            step      = 0.05,
                                             key       = f"vbreak{i}")
-                value_breaks.append(input_edge)
+                value_breaks.append(input_edge/100)
             
             bin_edges  = [floor] + value_breaks + [ceiling]
             bin_labels = []

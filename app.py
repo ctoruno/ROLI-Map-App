@@ -688,10 +688,11 @@ if check_password():
             cmap = colors.ListedColormap(colors_list)
 
         # Creating tabs for displaying the results
-        if delta_bin == False:
-            map_tab, table_tab, graph_tab = st.tabs(["Map", "Table", "Graph"])
-        else:    
-            map_tab, table_tab = st.tabs(["Map", "Table"])
+        map_tab, table_tab, graph_tab = st.tabs(["Map", "Table", "Graph"])
+        # if delta_bin == False:
+        #     map_tab, table_tab, graph_tab = st.tabs(["Map", "Table", "Graph"])
+        # else:    
+        #     map_tab, table_tab = st.tabs(["Map", "Table"])
 
         with map_tab:
             
@@ -800,35 +801,53 @@ if check_password():
                 mime      = "application/vnd.ms-excel"
             )
         
-        if delta_bin == False:
-            with graph_tab:
-                
+        # if delta_bin == False:
+        with graph_tab:
+            
+            if delta_bin == False:
                 # Defining height for plot
                 h = len(outcome_table)/5
                 
                 # Creating plot
                 bars = plt.figure(figsize = (10, h))
                 plt.barh(outcome_table["country"],
-                        outcome_table[target_variable], 
-                        color = outcome_table["color_code"])
+                         outcome_table[target_variable], 
+                         color = outcome_table["color_code"])
                 plt.gca().invert_yaxis()
                 plt.margins(y = 0)
 
-                # Add labels and a title
-                plt.title("Scores by Country")
+            else:
+                # Filtering data
+                outcome_table = (outcome_table
+                                 .dropna(subset = ["score"])
+                                 .sort_values("score"))
 
-                # Displaying map
-                st.pyplot(bars)
-
-                # Export image as SVG file
-                svg_file = io.StringIO()
-                plt.savefig(svg_file, 
-                            format = "svg")
+                # Defining height for plot
+                h = len(outcome_table)/5
                 
-                # Download button
-                st.download_button(label     = "Save Chart", 
-                                data      = svg_file.getvalue(), 
-                                file_name = "bar_chart.svg",
-                                key       = "download-chart")  
+                # Creating plot
+                bars = plt.figure(figsize = (10, h))
+                plt.barh(outcome_table["country"],
+                         outcome_table["score"], 
+                         color = outcome_table["color_code"])
+                plt.gca().invert_yaxis()
+                plt.margins(y = 0)
+
+            # Add labels and a title
+            plt.title("Scores by Country")
+
+            # Displaying map
+            st.pyplot(bars)
+
+            # Export image as SVG file
+            svg_file = io.StringIO()
+            plt.savefig(svg_file, 
+                        format = "svg")
+            
+            # Download button
+            st.download_button(label     = "Save Chart", 
+                            data      = svg_file.getvalue(), 
+                            file_name = "bar_chart.svg",
+                            key       = "download-chart")  
 
         

@@ -614,7 +614,7 @@ if check_password():
 
             # Filtering for 6-years change
             if perc_method == "6-years change":
-                base_year = int(target_year) - 6
+                base_year = int(target_year) - 7
                 pattern   = str(target_year) + "|" + str(base_year)
                 filtered_roli = (filtered_roli[filtered_roli["year"]
                                             .str.contains(pattern)])

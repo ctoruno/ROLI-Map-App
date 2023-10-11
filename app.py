@@ -378,9 +378,9 @@ if check_password():
                                             reverse = True)
                     
                     target_variable = st.selectbox("Select a variable from the following list:",
-                                                available_variables)
+                                                   available_variables)
                     target_year     = st.selectbox("Select which year do you want to display from the following list:",
-                                                available_years)
+                                                   available_years)
                     
                     # Floor and ceiling values
                     floor_input, ceiling_input = st.columns(2)
@@ -431,7 +431,7 @@ if check_password():
             # Base year selection
             with cc1:
                 perc_method = st.selectbox("What's the base change?",
-                                        ["1-year change", "5-years change"])
+                                        ["1-year change", "6-years change"])
             
             # Value breaks to form categories
             with cc2:
@@ -612,9 +612,9 @@ if check_password():
             # If we are plotting categorical data, we need to transform the data
             filtered_roli = master_data["roli"]
 
-            # Filtering for 5-years change
-            if perc_method == "5-years change":
-                base_year = int(target_year) - 5
+            # Filtering for 6-years change
+            if perc_method == "6-years change":
+                base_year = int(target_year) - 6
                 pattern   = str(target_year) + "|" + str(base_year)
                 filtered_roli = (filtered_roli[filtered_roli["year"]
                                             .str.contains(pattern)])

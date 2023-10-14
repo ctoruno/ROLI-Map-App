@@ -703,8 +703,10 @@ if check_password():
         else:
             data4drawing["alpha"] = 1
 
-        # st.write(data4drawing.loc[:,["country", "region", "alpha"]])
-
+        # Dropping values outside the region for regional WJP maps
+        if opac == True and delta_bin == True:
+            data4drawing.loc[~data4drawing["region"].isin(selected_regions), target_variable] = np.nan
+        
         # Creating tabs for displaying the results
         map_tab, table_tab, graph_tab = st.tabs(["Map", "Table", "Graph"])
 
@@ -817,7 +819,6 @@ if check_password():
                 mime      = "application/vnd.ms-excel"
             )
         
-        # if delta_bin == False:
         with graph_tab:
             
             if delta_bin == False:
@@ -835,7 +836,7 @@ if check_password():
             else:
                 # Filtering data
                 outcome_table = (outcome_table
-                                 .dropna(subset = ["score"])
+                                 .dropna(subset = ["score", "color_code"])
                                  .sort_values("score"))
 
                 # Defining height for plot

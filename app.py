@@ -735,7 +735,7 @@ if check_password():
                     ax           = ax,
                     edgecolor    = "#EBEBEB",
                     legend       = color_bar,
-                    # alpha        = data4drawing.dropna(subset = ["country"]).alpha,
+                    alpha        = None,
                     missing_kwds = missing_kwds
                 )
             ax.axis("off")

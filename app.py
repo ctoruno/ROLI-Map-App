@@ -277,9 +277,12 @@ if check_password():
                                                 listed_subregions,
                                                 default = listed_subregions,
                                                 help    = "You can select more than one subregion.")
+                
+                opac = False
 
         # Conditional display for customized extension
         elif extension == "Custom":
+            opac = False
             clatitudes, clongitudes = st.columns(2)
 
             with clatitudes:
@@ -317,6 +320,7 @@ if check_password():
         else:
             selected_regions = None
             regfilter        = None
+            opac             = False
 
     st.markdown("""---""")
 

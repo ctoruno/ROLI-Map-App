@@ -253,6 +253,11 @@ if check_password():
                                                 WJP_regions,
                                                 help = "You can select more than one region.")
                 
+                # Should we keep/remove the color scale bar from the map?
+                opac = st.toggle("Apply different opacities to countries?", 
+                                 value = True,
+                                 help  = "Countries within the map that are not part of the target region will have an alpha value of 20%")
+                
             if regions_div == "United Nations":
 
                 # Defining the filtering variable
@@ -622,7 +627,7 @@ if check_password():
             # Calculating percentage change
             filtered_roli = (filtered_roli
                             .sort_values(["country", "year"])
-                            .set_index(["country", "code", "year"])
+                            .set_index(["country", "code", "year", "region"])
                             .select_dtypes(np.number)
                             .groupby("country")
                             .pct_change()
@@ -673,7 +678,8 @@ if check_password():
         missing_kwds = {
             "color"    : "#EBEBEB",
             "edgecolor": "#EBEBEB",
-            "label"    : "Missing values"
+            "label"    : "Missing values",
+            "alpha"    : 1
         }
 
         # Create a custom colormap
@@ -685,14 +691,18 @@ if check_password():
         else:
             value2color     = dict(zip(bin_labels, color_breaks))
             colors_list     = [value2color[value] for value in bin_labels]
-            cmap = colors.ListedColormap(colors_list)
+            cmap            = colors.ListedColormap(colors_list)
+        
+        # Defining opacity (alpha) values for regional maps
+        if opac == True:
+            data4drawing["alpha"] = data4drawing["region"].apply(lambda x: 1 if x in selected_regions else 0.2)
+        else:
+            data4drawing["alpha"] = 1
+
+        # st.write(data4drawing.loc[:,["country", "region", "alpha"]])
 
         # Creating tabs for displaying the results
         map_tab, table_tab, graph_tab = st.tabs(["Map", "Table", "Graph"])
-        # if delta_bin == False:
-        #     map_tab, table_tab, graph_tab = st.tabs(["Map", "Table", "Graph"])
-        # else:    
-        #     map_tab, table_tab = st.tabs(["Map", "Table"])
 
         with map_tab:
             
@@ -710,9 +720,10 @@ if check_password():
                     legend       = color_bar,
                     vmin         = floor,
                     vmax         = ceiling,
+                    alpha        = data4drawing.dropna(subset = ["country"]).alpha,
                     missing_kwds = missing_kwds
                 )
-            else:
+            else: 
                 data4drawing.plot(
                     column       = target_variable, 
                     cmap         = cmap,
@@ -720,6 +731,7 @@ if check_password():
                     ax           = ax,
                     edgecolor    = "#EBEBEB",
                     legend       = color_bar,
+                    # alpha        = data4drawing.dropna(subset = ["country"]).alpha,
                     missing_kwds = missing_kwds
                 )
             ax.axis("off")

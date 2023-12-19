@@ -59,7 +59,7 @@ def load_data():
     roli_data         = pd.read_excel("Data/ROLI_data.xlsx")
     roli_data["year"] = roli_data["year"].apply(str)
     data              = {"boundaries" : boundaries,
-                        "roli"       : roli_data}
+                         "roli"       : roli_data}
     return data 
 master_data = load_data()
 
@@ -227,12 +227,12 @@ with extension_container:
     # Available Regions
     UN_regions    = ['Asia', 'Americas', 'Africa', 'Europe', 'Oceania']
     WJP_regions   = ['East Asia & Pacific',
-                    'Eastern Europe and Central Asia',
-                    'EU, EFTA, and North America',
-                    'Latin America & Caribbean',
-                    'Middle East & North Africa',
-                    'South Asia',
-                    'Sub-Saharan Africa']
+                     'Eastern Europe and Central Asia',
+                     'EU, EFTA, and North America',
+                     'Latin America & Caribbean',
+                     'Middle East & North Africa',
+                     'South Asia',
+                     'Sub-Saharan Africa']
 
     # Conditional display of regional options
     if extension == "Regional":
@@ -253,11 +253,6 @@ with extension_container:
                                             WJP_regions,
                                             help = "You can select more than one region.")
             
-            # Should we keep/remove the color scale bar from the map?
-            opac = st.toggle("Apply different opacities to countries?", 
-                             value = True,
-                             help  = "Countries within the map that are not part of the target region will have an alpha value of 20%")
-            
         if regions_div == "United Nations":
 
             # Defining the filtering variable
@@ -265,37 +260,51 @@ with extension_container:
 
             # Dropdown menu for regions
             regions = st.multiselect("Select the regions you would like to work with:",  
-                                    UN_regions,
-                                    help = "You can select more than one region.")
+                                     UN_regions,
+                                     help = "You can select more than one region.")
             
             # Dropdown menu for subregions
             listed_subregions = (master_data["boundaries"][master_data["boundaries"]["REGION_UN"]
-                                                        .isin(regions)]["SUBREGION"]
-                                                        .unique()
-                                                        .tolist())
+                                 .isin(regions)]["SUBREGION"]
+                                 .unique()
+                                 .tolist())
             selected_regions  = st.multiselect("Select the regions you would like to work with:", 
-                                            listed_subregions,
-                                            default = listed_subregions,
-                                            help    = "You can select more than one subregion.")
+                                               listed_subregions,
+                                               default = listed_subregions,
+                                               help    = "You can select more than one subregion.")
             
-            opac = False
-
+        # Should we keep/remove the color scale bar from the map?
+        opac = st.toggle("Apply different opacities to countries?", 
+                         value = True,
+                         help  = "Countries within the map that are not part of the target region will have an alpha value of 20%")
+        
+        if regions_div == "WJP":
+            highlighted_countries = (master_data["roli"][master_data["roli"]["region"]
+                                    .isin(selected_regions)]["code"]
+                                    .unique()
+                                    .tolist())
+        if regions_div == "United Nations":
+            highlighted_countries = (master_data["boundaries"][master_data["boundaries"]["SUBREGION"]
+                                    .isin(selected_regions)]["WB_A3"]
+                                    .unique()
+                                    .tolist())
+        
     # Conditional display for customized extension
     elif extension == "Custom":
-        opac = False
+
         clatitudes, clongitudes = st.columns(2)
 
         with clatitudes:
             min_lat = st.number_input(label     = "Minimum Latitude",
-                                    min_value = -90,
-                                    max_value = 90,
-                                    value     = 5,
-                                    help      = "Insert coordinates in degrees")
+                                      min_value = -90,
+                                      max_value = 90,
+                                      value     = 5,
+                                      help      = "Insert coordinates in degrees")
             max_lat = st.number_input(label     = "Maximum Latitude",
-                                    min_value = -90,
-                                    max_value = 90,
-                                    value     = 40,
-                                    help      = "Insert coordinates in degrees")
+                                      min_value = -90,
+                                      max_value = 90,
+                                      value     = 40,
+                                      help      = "Insert coordinates in degrees")
             
             if min_lat >= max_lat:
                 st.error("Minimum latitude should be lower than the maximum latitude", 
@@ -316,7 +325,21 @@ with extension_container:
             if min_lon >= max_lon:
                 st.error("Minimum longitude should be lower than the maximum longitude", 
                         icon = "🚨")
-            
+        
+        # Should we keep/remove the color scale bar from the map?
+        opac = st.toggle("Apply different opacities to countries?", 
+                         value = True,
+                         help  = "Countries within the map that are not part of the target region will have an alpha value of 20%")
+        if opac == True:
+            countries4high = st.multiselect("Select the countries you would like to highlight:",  
+                                            (master_data["roli"]["country"]
+                                            .unique()
+                                            .tolist()))
+            highlighted_countries = (master_data["roli"][master_data["roli"]["country"]
+                                    .isin(countries4high)]["code"]
+                                    .unique()
+                                    .tolist())
+    
     else:
         selected_regions = None
         regfilter        = None
@@ -422,8 +445,11 @@ with data_container:
         ceiling = 1
 
         # Checkbox for yearly changes
-        delta_bin = st.checkbox("Would you like to display yearly percentage changes?",
-                                help = "This will transform the variables into categorical groups.")
+        if target_year != "2012-2013":
+            delta_bin = st.checkbox("Would you like to display yearly percentage changes?",
+                                    help = "This will transform the variables into categorical groups.")
+        else:
+            delta_bin = False
 
     if delta_bin == True:
         
@@ -433,22 +459,23 @@ with data_container:
         
         # Options for categorical values
         end_year  = target_year
+        available_base_years = [x for x in available_years if x < end_year]
 
         # Creating columns for additional options
         cc1, cc2 = st.columns(2)
 
         # Base year selection
         with cc1:
-            perc_method = st.selectbox("What's the base change?",
-                                    ["1-year change", "6-years change"])
+            base_year = st.selectbox("What's the base year?",
+                                     available_base_years)
         
         # Value breaks to form categories
         with cc2:
             vbreaks = st.number_input("Define your categories", 
-                                    min_value = 2, 
-                                    max_value = 6, 
-                                    value     = 2,
-                                    step      = 2)
+                                      min_value = 2, 
+                                      max_value = 6, 
+                                      value     = 2,
+                                      step      = 2)
 
         # Empty list to store value breaks
         value_breaks = []
@@ -488,7 +515,7 @@ with customization:
 
     # Map Customization Container Title
     st.markdown("<h4>Step 3: Customize your map</h4>",
-                    unsafe_allow_html = True)
+                unsafe_allow_html = True)
     st.markdown(
     """
     <p class='jtext'>
@@ -518,7 +545,7 @@ with customization:
     # Dropdown menu for number of color breaks
     if delta_bin == False:
         ncolors = st.number_input("Select number of color breaks", 2, 7, 5,
-                                help = "You can select to a maximum of 7 color breaks for your gradient.")
+                                  help = "You can select to a maximum of 7 color breaks for your gradient.")
     else:
         ncolors = vbreaks
     
@@ -607,7 +634,13 @@ with saving:
     """,
     unsafe_allow_html = True)
 
-    submit_button = st.button(label = "Display")
+    if data_input == "Custom Data":
+        if uploaded_file is None:
+            st.error("Please upload a file to continue", 
+                     icon = "🚨")
+            submit_button = False
+    else:
+        submit_button = st.button(label = "Display")
 
 # Server
 if submit_button:
@@ -621,12 +654,11 @@ if submit_button:
         # If we are plotting categorical data, we need to transform the data
         filtered_roli = master_data["roli"]
 
-        # Filtering for 6-years change
-        if perc_method == "6-years change":
-            base_year = int(target_year) - 7
-            pattern   = str(target_year) + "|" + str(base_year)
+        # Filtering for percentage change
+        if base_year is not None:
+            pattern = str(target_year) + "|" + str(base_year)
             filtered_roli = (filtered_roli[filtered_roli["year"]
-                                        .str.contains(pattern)])
+                             .str.contains(pattern)])
         
         # Calculating percentage change
         filtered_roli = (filtered_roli
@@ -642,20 +674,21 @@ if submit_button:
         # Transforming target variable into a categorical variable
         filtered_roli["score"] = filtered_roli[target_variable]
         filtered_roli[target_variable] = (pd
-                                        .cut(filtered_roli[target_variable],
-                                            bins   = bin_edges,
-                                            labels = bin_labels)) 
+                                          .cut(filtered_roli[target_variable],
+                                               bins   = bin_edges,
+                                               labels = bin_labels)) 
 
     # Merge the two DataFrames on a common column
     data4map = master_data["boundaries"].merge(filtered_roli,
-                                            left_on  = "WB_A3", 
-                                            right_on = "code",
-                                            how      = "left")
+                                               left_on  = "WB_A3", 
+                                               right_on = "code",
+                                               how      = "left")
     
     # Subsetting countries within selected regions
     if extension != "World":
         
         if extension == "Regional":
+
             # Defining bounding box
             regions_coords = (bbox_coords[bbox_coords["region"].isin(selected_regions)])
             min_X = regions_coords.min_X.min()
@@ -699,13 +732,14 @@ if submit_button:
     
     # Defining opacity (alpha) values for regional maps
     if opac == True:
-        data4drawing["alpha"] = data4drawing["region"].apply(lambda x: 1 if x in selected_regions else 0.2)
+        data4drawing["alpha"] = (data4drawing["WB_A3"]
+                                 .apply(lambda x: 1 if x in highlighted_countries else 0.2))
     else:
         data4drawing["alpha"] = 1
 
     # Dropping values outside the region for regional WJP maps
     if opac == True and delta_bin == True:
-        data4drawing.loc[~data4drawing["region"].isin(selected_regions), target_variable] = np.nan
+        data4drawing.loc[~data4drawing["WB_A3"].isin(highlighted_countries), target_variable] = np.nan
     
     # Creating tabs for displaying the results
     map_tab, table_tab, graph_tab = st.tabs(["Map", "Table", "Graph"])
@@ -752,9 +786,9 @@ if submit_button:
         
         # Download button
         st.download_button(label     = "Save Map", 
-                        data      = svg_file.getvalue(), 
-                        file_name = "choropleth_map.svg",
-                        key       = "download-map")  
+                           data      = svg_file.getvalue(), 
+                           file_name = "choropleth_map.svg",
+                           key       = "download-map")  
                 
     with table_tab:
 
@@ -762,7 +796,7 @@ if submit_button:
 
         # Dropping geometries
         outcome_table = (pd
-                        .DataFrame(data4drawing.drop(columns = "geometry")))
+                         .DataFrame(data4drawing.drop(columns = "geometry")))
         
         # Subsetting data frame to export
         outcome_table = outcome_table[outcome_table["year"] == target_year]
@@ -778,8 +812,8 @@ if submit_button:
 
             # Adding minimmum and maximum hypothetical values
             minmax = pd.DataFrame({"country"      : ['Floor-Ceiling', 'Floor-Ceiling'],
-                                "WB_A3"        : ['Floor-Ceiling', 'Floor-Ceiling'], 
-                                target_variable: [floor, ceiling]})
+                                   "WB_A3"        : ['Floor-Ceiling', 'Floor-Ceiling'], 
+                                   target_variable: [floor, ceiling]})
 
             # Add a new column to the GeoDataFrame for color codes
             outcome_table["color_code"] = (outcome_table
@@ -797,9 +831,10 @@ if submit_button:
         
         else:
             outcome_table["color_code"] = (outcome_table[target_variable]
-                                        .map(value2color))
+                                           .map(value2color))
 
-        
+        outcome_table = outcome_table[outcome_table["color_code"].notnull()]
+
         # Displaying Table
         st.write(outcome_table)
 
@@ -863,8 +898,8 @@ if submit_button:
         
         # Download button
         st.download_button(label     = "Save Chart", 
-                        data      = svg_file.getvalue(), 
-                        file_name = "bar_chart.svg",
-                        key       = "download-chart")  
+                           data      = svg_file.getvalue(), 
+                           file_name = "bar_chart.svg",
+                           key       = "download-chart")  
 
         

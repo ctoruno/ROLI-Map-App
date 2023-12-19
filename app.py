@@ -833,7 +833,9 @@ if submit_button:
             outcome_table["color_code"] = (outcome_table[target_variable]
                                            .map(value2color))
 
-        outcome_table = outcome_table[outcome_table["color_code"].notnull()]
+        # Filtering table
+        if extension == "Regional" or extension == "Custom":
+            outcome_table = outcome_table[outcome_table["WB_A3"].isin(highlighted_countries)]
 
         # Displaying Table
         st.write(outcome_table)

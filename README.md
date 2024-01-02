@@ -1,6 +1,10 @@
 The **_ROLI Map Generator_**  is an interactive app designed to display and generate Choropleth Maps using the WJP's Rule of Law Index scores as data inputs. This app is still under development. However, the data presented in this app is up-to-date according to the latest datasets published by the World Justice Project in its website.
 
-If you have questions, suggestions or you want to report a bug, you can send an email to carlos.toruno@gmail.com. The Python code for this app is publicly available on [this GitHub repository](https://github.com/ctoruno/ROLI-Map-App).
+The app was programmed using Streamlit Web Framework. The data and the maps are handled through GeoPandas and Matplotlib libraries. The Python code for this app is publicly available on [this GitHub repository](https://github.com/ctoruno/ROLI-Map-App). The web app is currently functional and can be found on [roli-mapgen.streamlit.app](https://roli-mapgen.streamlit.app/).
+
+Just follow the instructions and draw your maps!
+
+If you have questions, suggestions or you want to report a bug, you can send an email to carlos.toruno@gmail.com.
 
 ![](Media/preview.png)
 

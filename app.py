@@ -544,7 +544,7 @@ with customization:
 
     # Dropdown menu for number of color breaks
     if delta_bin == False:
-        ncolors = st.number_input("Select number of color breaks", 2, 7, 5,
+        ncolors = st.number_input("Select number of color breaks", 2, 7, 6,
                                   help = "You can select to a maximum of 7 color breaks for your gradient.")
     else:
         ncolors = vbreaks

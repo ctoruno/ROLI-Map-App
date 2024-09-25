@@ -669,6 +669,7 @@ if check_password():
                             .pct_change()
                             .reset_index()
                             )
+            
             filtered_roli = filtered_roli[filtered_roli["year"] == target_year]
 
             # Transforming target variable into a categorical variable
@@ -800,12 +801,39 @@ if check_password():
             
             # Subsetting data frame to export
             outcome_table = outcome_table[outcome_table["year"] == target_year]
+        
             if delta_bin == False:
                 outcome_table = (outcome_table[["country", "WB_A3", target_variable]]
                                 .sort_values(by = "country", ascending = True))
+                
             else:
+
                 outcome_table = (outcome_table[["country", "WB_A3", target_variable, "score"]]
                                 .sort_values(by = "country", ascending = True))
+            
+
+                # For displaying the table, overwrite 'score' with the original scores for the target year
+                original_scores = master_data["roli"][master_data["roli"]['year'] == target_year][["country", "code", target_variable]]
+
+                
+                # Merge original scores into outcome_table to update 'score'
+                outcome_table = outcome_table.merge(original_scores[['country', 'code', target_variable]],
+                                                    left_on="WB_A3", right_on="code",
+                                                    suffixes=('_pct_change', '_original'))
+                            
+                # Replace 'score' column with the original scores for display purposes
+                outcome_table['change'] = outcome_table['score']
+                outcome_table['score'] = outcome_table[f'{target_variable}_original']
+                outcome_table  = outcome_table.rename(
+                    columns={
+                        "country_pct_change": "country",
+                        "roli_pct_change": "roli"
+                    }
+                )
+
+                outcome_table = outcome_table.drop(
+                    columns = ['country_original', 'roli_original', 'code']
+                )
 
             # Cleaning table to display
             if delta_bin == False:
@@ -837,8 +865,13 @@ if check_password():
             if extension == "Regional" or extension == "Custom":
                 outcome_table = outcome_table[outcome_table["WB_A3"].isin(highlighted_countries)]
 
-            # Displaying Table
+    
+            if delta_bin == True:
+                outcome_table = outcome_table.drop(columns=['roli'])
+                outcome_table['score'] = outcome_table['score']*100
+                outcome_table['change'] = outcome_table['change']*100
             st.write(outcome_table)
+
 
             # Converting to EXCEL
             # You need to install the XlsxWriter. See: https://xlsxwriter.readthedocs.io/

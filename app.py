@@ -147,8 +147,8 @@ if check_password():
 
             # WJP regions
             ['East Asia & Pacific', 73, -48.7, 180, 54.8],
-            ['Eastern Europe and Central Asia', 13, 35, 180, 88],
-            ['EU, EFTA, and North America', -172, 24, 36, 88],
+            ['Eastern Europe & Central Asia', 13, 35, 180, 88],
+            ['EU, EFTA, & North America', -172, 24, 36, 88],
             ['Latin America & Caribbean', -119.5, -66, -29, 38.3],
             ['Middle East & North Africa', -19.5, 18, 64.3, 45], 
             ['South Asia', 57, 5, 100, 40], 
@@ -227,8 +227,8 @@ if check_password():
         # Available Regions
         UN_regions    = ['Asia', 'Americas', 'Africa', 'Europe', 'Oceania']
         WJP_regions   = ['East Asia & Pacific',
-                        'Eastern Europe and Central Asia',
-                        'EU, EFTA, and North America',
+                        'Eastern Europe & Central Asia',
+                        "EU, EFTA, & North America",
                         'Latin America & Caribbean',
                         'Middle East & North Africa',
                         'South Asia',
@@ -692,10 +692,11 @@ if check_password():
 
                 # Defining bounding box
                 regions_coords = (bbox_coords[bbox_coords["region"].isin(selected_regions)])
+
                 min_X = regions_coords.min_X.min()
-                min_Y = regions_coords.min_Y.min()
-                max_X = regions_coords.max_X.max()
-                max_Y = regions_coords.max_Y.max()
+                min_Y = regions_coords.min_Y.min() 
+                max_X = regions_coords.max_X.max() 
+                max_Y = regions_coords.max_Y.max() 
                 bbox  = box(min_X, min_Y, max_X, max_Y)
 
                 # Masking the world map using the bounding box
@@ -865,7 +866,6 @@ if check_password():
             if extension == "Regional" or extension == "Custom":
                 outcome_table = outcome_table[outcome_table["WB_A3"].isin(highlighted_countries)]
 
-    
             if delta_bin == True:
                 outcome_table = outcome_table.drop(columns=['roli'])
                 outcome_table['score'] = outcome_table['score']*100

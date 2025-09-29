@@ -6,7 +6,7 @@ Just follow the instructions and draw your maps!
 
 If you have questions, suggestions or you want to report a bug, you can send an email to carlos.toruno@gmail.com.
 
-![](Media/preview.png)
+![](media/preview.png)
 
 ## Disclaimer
 This web application utilizes data published by The World Justice Project (WJP) to generate chloropleth maps for informational purposes only. The data presented here is sourced from WJP's publicly available information and is intended to provide visual representation.
